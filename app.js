@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 //路由
 var routes = require('./routes/index');
 var reg = require('./routes/reg');
-var birds = require('./routes/birds');
+var help = require('./routes/help');
 //模板引擎
 var ejs = require('ejs');
 //express
@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/reg', reg);
-app.use('/birds', birds);
+app.use('/help', help);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
