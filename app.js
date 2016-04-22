@@ -5,9 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //路由
-var routes = require('./routes/index');
-var reg = require('./routes/reg');
-var help = require('./routes/help');
+var routes = require('./routes/routes.js');
+/*var reg = require('./routes/reg');
+var help = require('./routes/help');*/
 //模板引擎
 var ejs = require('ejs');
 //express
@@ -27,10 +27,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
+/*app.use('/', routes);
 app.use('/reg', reg);
-app.use('/help', help);
+app.use('/help', help);*/
+//路由总接口
+routes(app)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
