@@ -1,18 +1,26 @@
-var mysql = require('mysql');
+/*var mysql = require('mysql');
 var conn = mysql.createConnection({
 	host: '10.110.30.30',
 	user: 'php',
 	password: 'php',
 	database: 'mynode'
-});
+});*/
+module.exports = {
+	host: '10.110.30.30',
+	user: 'php',
+	password: 'php',
+	database: 'mynode'
+}
 
+
+/*
 conn.connect();
 
 var insertSQL = 'insert into user(name,password) values("xunzou1",123456),("haha1",123456)';
 var selectSQL = 'select * from user limit 10';
 var deleteSQL = 'delete from user where name = "xunzou"';
 //delete from friends where user_name = 'simaopig';
-var updateSQL = 'update user set name="你大爷" where name="xunzou1"';
+var updateSQL = 'update user set name="你大爷" where name="xunzou1"';*/
 
 /*conn.query(insertSQL,function (err, result) {
 	if (err) {
@@ -45,7 +53,7 @@ var updateSQL = 'update user set name="你大爷" where name="xunzou1"';
 	console.log('------------------------------------------------------------');
 	// body...
 })*/
-conn.query(updateSQL,function(err,result){
+/*conn.query(updateSQL,function(err,result){
 	if (err) {
 		console.log(err)
 		return
@@ -54,5 +62,5 @@ conn.query(updateSQL,function(err,result){
 	console.log(result)
 	console.log('------------------------------------------------------------');
 	// body...
-})
+})*/
 //connection.end();
