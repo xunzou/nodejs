@@ -3,11 +3,22 @@
     	<p>Welcome to <%= title %></p>
 
 
-    	<div id="example"></div>
-	    <script type="text/babel">
-	      	ReactDOM.render(
-	        	<h1>Hello, world!</h1>,
-	        	document.getElementById('example')
-	      	);
-	    </script>
+    	<form action="/reg" method="post">
+    		<div class="reg_item">
+    			<label for="">用户名</label>
+    			<input type="text" name="name" id="name" class="ipt" />
+    		</div>
+    		<div class="reg_item">
+    			<label for="">Email</label>
+    			<input type="text" name="email" id="email" class="ipt" />
+    		</div>
+    		<div class="reg_item">
+    			<label for="">密码</label>
+    			<input type="password" name="password" id="password" class="ipt" />
+    		</div>
+    		<div class="reg_item">
+    			<label for=""> </label>
+    			<input type="submit" class="btn" />
+    		</div>
+    	</form>
 <%- include('common/footer.html') -%>
