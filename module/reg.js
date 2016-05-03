@@ -1,7 +1,6 @@
 var conn = require('../conn')
 var mysql = require('mysql')
 var pool = mysql.createPool(conn);
-console.log(conn)
 pool.getConnection(function(err, connection) {
 	// Use the connection
 	connection.query('SELECT * FROM user', function(err, rows) {
@@ -50,7 +49,7 @@ Reg.prototype = {
 				console.log('--------------------------INSERT----------------------------');
 				//console.log(rows)
 				callback(null,rows)
-				console.log('------------------------------------------------------------');
+				console.log('--------------------------INSERT----------------------------');
 
 				// And done with the connection.
 				connection.release();
@@ -75,7 +74,7 @@ Reg.prototype = {
 				console.log('--------------------------SELECT----------------------------');
 				//console.log(rows)
 				callback(null,rows)
-				console.log('------------------------------------------------------------');
+				console.log('--------------------------SELECT----------------------------');
 
 				// And done with the connection.
 				connection.release();

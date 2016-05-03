@@ -3,7 +3,11 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
 var bodyParser = require('body-parser');
+var conn = require('./conn')
+var sessionStore = new MySQLStore(conn);
 //路由
 var routes = require('./routes/routes.js');
 /*var reg = require('./routes/reg');
@@ -27,6 +31,16 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// 按照上面的解释，设置 session 的可选参数
+app.use(session({
+  key: 'mynodejs',
+  secret: 'mynodejs_secret',
+  store: sessionStore,
+  resave: true,
+  saveUninitialized: true
+}));
+
+
 /*app.use('/', routes);
 app.use('/reg', reg);
 app.use('/help', help);*/

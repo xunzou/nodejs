@@ -12,6 +12,7 @@ module.exports = function(app) {
 	}
 
 	function checkNotLogin(req, res, next) {
+		console.log(arguments)
 		if (req.session.user) {
 			req.flash('error', '已登录!');
 			return res.redirect('back'); //返回之前的页面
@@ -57,7 +58,7 @@ module.exports = function(app) {
 					return
 				};
 				console.log(user)
-				res.redirect('/reg'); //返回注册页
+				res.redirect('/home'); //返回注册页
 			})
 
 		})
@@ -75,6 +76,12 @@ module.exports = function(app) {
 	});
 
 	// define the home page route
+	app.get('/home', checkNotLogin)
+	app.get('/home', function(req, res) {
+		res.render('home', {
+			title: 'home'
+		});
+	});
 	app.get('/help', function(req, res) {
 		res.send('Birds home page');
 	});
