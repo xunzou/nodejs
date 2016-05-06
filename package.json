@@ -12,12 +12,12 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
-    "express-mysql-session": "^1.0.0",
     "morgan": "~1.6.1",
     "mysql": "felixge/node-mysql",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "express-mysql-session": "^1.0.0",
     "express-session": "^1.13.0"
   }
 }

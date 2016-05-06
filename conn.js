@@ -6,9 +6,9 @@ var conn = mysql.createConnection({
 	database: 'mynode'
 });*/
 module.exports = {
-	host: '10.110.30.30',
-	user: 'php',
-	password: 'php',
+	host: '127.0.0.1',
+	user: 'root',
+	password: '',
 	database: 'mynode'
 }
 

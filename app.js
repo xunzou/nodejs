@@ -38,6 +38,7 @@ app.use(session({
   key: 'mynodejs',
   secret: 'mynodejs_secret',
   store: sessionStore,
+  cookie:{maxAge:300000},
   resave: true,
   saveUninitialized: true
 }));

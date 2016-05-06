@@ -1,6 +1,6 @@
 //router
 var Reg = require('../module/reg.js');
-var Login = require('../module/login.js');
+//var Login = require('../module/login.js');
 
 module.exports = function(app) {
 
@@ -13,7 +13,7 @@ module.exports = function(app) {
 	}
 
 	function checkNotLogin(req, res, next) {
-		console.log(arguments)
+		console.log(req.session.user,1111)
 		if (req.session.user) {
 			req.flash('error', '已登录!');
 			return res.redirect('back'); //返回之前的页面
@@ -25,7 +25,10 @@ module.exports = function(app) {
 	/* GET home page. */
 	app.get('/', function(req, res) {
 		res.render('index', {
-			title: 'Express'
+			title: 'Express',
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString(),
+			user: req.session.user
 		});
 	});
 
@@ -66,7 +69,7 @@ module.exports = function(app) {
 				req.session.user = user.name;//用户信息存入 session
         		req.flash('success', '注册成功!');
 				console.log(user)
-				res.redirect('/home'); //返回注册页
+				res.redirect('/home'); //返回home
 			})
 
 		})
@@ -89,8 +92,8 @@ module.exports = function(app) {
 				name: name,
 				password: password
 			};
-		var login = new Login(o)
-		login.userLogin(o, function(err, data) {
+		var reg = new Reg(o)
+		reg.getUser(name, function(err, data) {
 			console.log(o)
 			console.log(err, 1111)
 			console.log(data, 2222)
@@ -99,24 +102,38 @@ module.exports = function(app) {
 				req.flash('error', '暂无此人'); 
 				return
 			};
+			if (password != data[0].password) {
+				console.log('密码不对哦！')
+				req.flash('error', '密码不对哦！'); 
+				return
+			};
 			if (data.length) {
 				console.log('登录成功')
 				console.log(JSON.stringify(data))
 				req.session.user = data[0].name;//用户信息存入 session
+				console.log(data[0].name)
 				console.log(req.session.user)
         		req.flash('success', '登录成功!');
+				res.redirect('/home'); //返回home
 			};
 		})
 	});
 
 	// define the home page route
-	app.get('/home', checkNotLogin)
+	app.get('/home', checkLogin)
 	app.get('/home', function(req, res) {
 		res.render('home', {
 			title: 'home',
 			user: req.session.user
 		});
 	});
+
+	app.get('/logout', function(req, res) {
+		req.session.user = null
+		res.redirect('/');
+	});
+
+
 	app.get('/help', function(req, res) {
 		res.send('Birds home page');
 	});
