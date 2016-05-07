@@ -55,7 +55,7 @@ module.exports = function(app) {
 		})
 		console.log(name, password, email)
 		reg.getUser(name, function(err, user) {
-			console.log(err, user)
+			console.log(err, user,555888)
 			if (user.length) {
 				console.log('用户已存在!')
 				req.flash('error', '用户已存在'); 
@@ -64,6 +64,7 @@ module.exports = function(app) {
 			reg.saveUser(function(err, user) {
 				if (err) {
 					console.log(err)
+					req.flash('error', err); 
 					return
 				};
 				req.session.user = user.name;//用户信息存入 session
@@ -94,9 +95,9 @@ module.exports = function(app) {
 			};
 		var reg = new Reg(o)
 		reg.getUser(name, function(err, data) {
-			console.log(o)
+			/*console.log(o)
 			console.log(err, 1111)
-			console.log(data, 2222)
+			console.log(data, 2222)*/
 			if (!data.length) {
 				console.log('暂无此人')
 				req.flash('error', '暂无此人'); 

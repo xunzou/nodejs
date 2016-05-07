@@ -1,6 +1,8 @@
 <%- include('common/header.html') -%>
     	<h1><%= title %></h1>
     	<p>Welcome to <%= user %></p>
+        <p>s<%= success %></p>
+        <p>e<%= error %></p>
 
 
     	<form action="/login" method="post">
@@ -17,4 +19,11 @@
     			<input type="submit" class="btn" />
     		</div>
     	</form>
+
+        <% if (success) { %>
+            <div class="alert alert-success"><%= success %></div>
+        <% } %>
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
 <%- include('common/footer.html') -%>
