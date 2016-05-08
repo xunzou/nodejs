@@ -1,6 +1,6 @@
 //router
 var Reg = require('../module/reg.js');
-//var Login = require('../module/login.js');
+var Post = require('../module/post.js');
 
 module.exports = function(app) {
 
@@ -13,7 +13,7 @@ module.exports = function(app) {
 	}
 
 	function checkNotLogin(req, res, next) {
-		console.log(req.session.user,1111)
+		console.log(req.session.user, 1111)
 		if (req.session.user) {
 			req.flash('error', '已登录!');
 			return res.redirect('back'); //返回之前的页面
@@ -55,20 +55,21 @@ module.exports = function(app) {
 		})
 		console.log(name, password, email)
 		reg.getUser(name, function(err, user) {
-			console.log(err, user,555888)
+			console.log(err, user, 555888)
 			if (user.length) {
 				console.log('用户已存在!')
-				req.flash('error', '用户已存在'); 
+				req.flash('error', '用户已存在');
 				return res.redirect('/reg'); //返回注册页
 			};
 			reg.saveUser(function(err, user) {
 				if (err) {
 					console.log(err)
-					req.flash('error', err); 
-					return
+					req.flash('error', err);
+					return res.redirect('/reg'); //返回注册页
 				};
-				req.session.user = user.name;//用户信息存入 session
-        		req.flash('success', '注册成功!');
+				req.session.user = user.name; //用户信息存入 session
+				req.session.userId = user.id; //用户id存入 session
+				req.flash('success', '注册成功!');
 				console.log(user)
 				res.redirect('/home'); //返回home
 			})
@@ -80,7 +81,7 @@ module.exports = function(app) {
 	app.get('/login', function(req, res) {
 		res.render('login', {
 			title: 'login',
-			user:req.session.user,
+			user: req.session.user,
 			success: req.flash('success').toString(),
 			error: req.flash('error').toString()
 		});
@@ -99,22 +100,24 @@ module.exports = function(app) {
 			console.log(err, 1111)
 			console.log(data, 2222)*/
 			if (!data.length) {
+				req.flash('error', '暂无此人');
 				console.log('暂无此人')
-				req.flash('error', '暂无此人'); 
-				return
+				return res.redirect('/login'); //返回登录页
 			};
 			if (password != data[0].password) {
 				console.log('密码不对哦！')
-				req.flash('error', '密码不对哦！'); 
-				return
+				req.flash('error', '密码不对哦！');
+				return res.redirect('/login'); //返回登录页
 			};
 			if (data.length) {
 				console.log('登录成功')
 				console.log(JSON.stringify(data))
-				req.session.user = data[0].name;//用户信息存入 session
+				req.session.user = data[0].name; //用户信息存入 session
+				req.session.userId = data[0].id; //用户id存入 session
 				console.log(data[0].name)
+				console.log(data[0].id)
 				console.log(req.session.user)
-        		req.flash('success', '登录成功!');
+				req.flash('success', '登录成功!');
 				res.redirect('/home'); //返回home
 			};
 		})
@@ -125,13 +128,64 @@ module.exports = function(app) {
 	app.get('/home', function(req, res) {
 		res.render('home', {
 			title: 'home',
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString(),
 			user: req.session.user
 		});
 	});
+	app.post('/home', checkLogin)
+	app.post('/home', function(req, res) {
+
+	});
+
+
 
 	app.get('/logout', function(req, res) {
 		req.session.user = null
 		res.redirect('/');
+	});
+
+
+
+	// define the post page route
+	app.get('/post', checkLogin)
+	app.get('/post', function(req, res) {
+		res.render('post', {
+			title: 'post',
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString(),
+			user: req.session.user
+		});
+	});
+	app.post('/post', checkLogin)
+	app.post('/post', function(req, res) {
+		var article_title = req.body.article_title,
+			article_con = req.body.article_con,
+			article_summary = req.body.article_summary,
+			userId = req.session.userId,
+			o = {
+				title: article_title,
+				article: article_con,
+				summary: article_summary,
+				userId: userId
+			};
+		console.log(req.session)
+		console.log(o)
+		//return
+		var post = new Post(o)
+		console.log('--------------------------insertinsertinsertinsertinsert----------------------------')
+		post.saveArticle(function(err, data) {
+			if (err) {
+				console.log(err)
+				req.flash('error', '出错了');
+				return res.redirect('/post'); //返回登录页
+			};
+			if (data) {
+				console.log(JSON.stringify(data))
+				req.flash('success', '发表成功!');
+				res.redirect('/home'); //返回home
+			};
+		})
 	});
 
 

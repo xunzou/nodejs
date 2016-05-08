@@ -3,14 +3,18 @@
     	<p>Welcome to <%= user %></p>
 
 
-    	<form action="/login" method="post">
+    	<form action="/post" method="post">
     		<div class="reg_item">
-    			<label for="">用户名</label>
-    			<input type="text" name="name" id="name" class="ipt" />
+    			<label for="">标题</label>
+    			<input type="text" name="article_title" id="articleTitle" class="ipt" />
     		</div>
+            <div class="reg_item">
+                <label for="">内容</label>
+                <textarea name="article_con" id="articleCon" cols="40" rows="5"></textarea>
+            </div>
     		<div class="reg_item">
-    			<label for="">密码</label>
-    			<input type="password" name="password" id="password" class="ipt" />
+    			<label for="">摘要</label>
+                <textarea name="article_summary" id="articleSummary" cols="40" rows="2"></textarea>
     		</div>
     		<div class="reg_item">
     			<label for=""> </label>
