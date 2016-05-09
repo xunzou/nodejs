@@ -1,6 +1,7 @@
 //router
 var Reg = require('../module/reg.js');
 var Post = require('../module/post.js');
+var ArticleList = require('../module/articleList.js');
 
 module.exports = function(app) {
 
@@ -133,9 +134,28 @@ module.exports = function(app) {
 			user: req.session.user
 		});
 	});
-	app.post('/home', checkLogin)
-	app.post('/home', function(req, res) {
+	app.post('/home/getArticle.json', function(req, res) {
+		var userId = req.session && req.session.userId;
+		var article = new ArticleList({userId:userId})
+		console.log(req)
+		console.log(req.body)
+		var params;
+		for (var key in req.body) {
+			params = JSON.parse(key)
+		};
+		console.log(typeof params)
+		console.log(params,146)
+		article.getArticle(function(err,data){
+			if (err) {
+				console.log(err)
+				req.flash('error', '出错了');
+				return res.end(JSON.stringify(err));
+			};
+			if (data) {
+				return res.end(JSON.stringify(data));
+			};
 
+		})
 	});
 
 
@@ -169,8 +189,6 @@ module.exports = function(app) {
 				summary: article_summary,
 				userId: userId
 			};
-		console.log(req.session)
-		console.log(o)
 		//return
 		var post = new Post(o)
 		console.log('--------------------------insertinsertinsertinsertinsert----------------------------')

@@ -17,7 +17,7 @@ Post.prototype = {
 		var self = this;
 		pool.getConnection(function(err, connection) {
 
-			var insertSQL = 'insert into article(title,summary,article,userId) values("'+self.title+'","'+self.summary+'","'+self.article+'","'+self.userId+'")'
+			var insertSQL = 'insert into article(title,summary,article,userId) values("'+self.title+'","'+self.summary+'","'+self.article+'","'+self.userId+'");';
 			console.log(insertSQL)
 			// Use the connection
 			connection.query(insertSQL, function(err, data) {

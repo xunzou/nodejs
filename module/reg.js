@@ -1,7 +1,7 @@
 var conn = require('../conn')
 var mysql = require('mysql')
 var pool = mysql.createPool(conn);
-pool.getConnection(function(err, connection) {
+/*pool.getConnection(function(err, connection) {
 	// Use the connection
 	connection.query('SELECT * FROM user', function(err, rows) {
 		if (err) {
@@ -18,7 +18,7 @@ pool.getConnection(function(err, connection) {
 
 		// Don't use the connection here, it has been returned to the pool.
 	});
-});
+});*/
 
 
 function Reg(user) {
@@ -36,7 +36,7 @@ Reg.prototype = {
 		//var user =  this.name,this.password
 		pool.getConnection(function(err, connection) {
 
-			var insertSQL = 'insert into user(name,password) values("' + self.name + '",' + self.password + ')'
+			var insertSQL = 'insert into user(name,password) values("' + self.name + '",' + self.password + ');';
 			console.log(insertSQL)
 			// Use the connection
 			connection.query(insertSQL, function(err, rows) {
