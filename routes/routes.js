@@ -137,23 +137,30 @@ module.exports = function(app) {
 	app.post('/home/getArticle.json', function(req, res) {
 		var userId = req.session && req.session.userId;
 		var article = new ArticleList({userId:userId})
-		console.log(req)
+		/*console.log(res)
 		console.log(req.body)
 		var params;
 		for (var key in req.body) {
 			params = JSON.parse(key)
 		};
 		console.log(typeof params)
-		console.log(params,146)
+		console.log(params)*/
 		article.getArticle(function(err,data){
+			var allData = {
+				error:null,
+				result:null
+			}
 			if (err) {
 				console.log(err)
 				req.flash('error', '出错了');
-				return res.end(JSON.stringify(err));
+				allData.error = err
+				//return res.end(JSON.stringify(err));
 			};
 			if (data) {
-				return res.end(JSON.stringify(data));
+				allData.result = data
+				//return res.end(JSON.stringify(data));
 			};
+			return res.end(JSON.stringify(allData));
 
 		})
 	});
