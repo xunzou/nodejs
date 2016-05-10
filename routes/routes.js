@@ -137,14 +137,14 @@ module.exports = function(app) {
 	app.post('/home/getArticle.json', function(req, res) {
 		var userId = req.session && req.session.userId;
 		var article = new ArticleList({userId:userId})
-		/*console.log(res)
+		/*console.log(res)*/
 		console.log(req.body)
 		var params;
 		for (var key in req.body) {
 			params = JSON.parse(key)
 		};
 		console.log(typeof params)
-		console.log(params)*/
+		console.log(params)
 		article.getArticle(function(err,data){
 			var allData = {
 				error:null,
@@ -160,6 +160,7 @@ module.exports = function(app) {
 				allData.result = data
 				//return res.end(JSON.stringify(data));
 			};
+			//return res.json(allData);
 			return res.end(JSON.stringify(allData));
 
 		})
