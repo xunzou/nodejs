@@ -3,21 +3,21 @@ var mysql = require('mysql')
 var pool = mysql.createPool(conn);
 
 
-function Post(options) {
-	this.userId = options.userId;
+function ArticleList(options) {
+	this.userId = options && options.userId;
 };
 
-module.exports = Post
+module.exports = ArticleList
 
-Post.prototype = {
+ArticleList.prototype = {
 	getArticle: function(callback) {
 		var self = this;
 		pool.getConnection(function(err, connection) {
 
-			var selectSQL = 'select * from `article` order by id DESC limit 10;';
+			var selectSQL = 'select id,title,addDate from `article` order by id DESC limit 10';
 			console.log(self.userId)
 			if (self.userId) {
-				selectSQL = 'select * from `article` WHERE `userId`="'+ self.userId +'" order by id DESC limit 10;';
+				selectSQL = 'select id,title,addDate from `article` WHERE `userId`="'+ self.userId +'" order by id DESC limit 10;';
 			};
 			console.log(selectSQL)
 			// Use the connection

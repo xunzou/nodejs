@@ -2,6 +2,7 @@
 var Reg = require('../module/reg.js');
 var Post = require('../module/post.js');
 var ArticleList = require('../module/articleList.js');
+var Single = require('../module/Single.js');
 
 module.exports = function(app) {
 
@@ -31,6 +32,31 @@ module.exports = function(app) {
 			error: req.flash('error').toString(),
 			user: req.session.user
 		});
+	});
+
+
+	app.post('/getAllArticle.json', function(req, res) {
+		var article = new ArticleList()
+		article.getArticle(function(err,data){
+			var allData = {
+				error:null,
+				result:null
+			}
+			console.log(data)
+			if (err) {
+				console.log(err)
+				req.flash('error', '出错了');
+				allData.error = err
+				//return res.end(JSON.stringify(err));
+			};
+			if (data) {
+				allData.result = data
+				//return res.end(JSON.stringify(data));
+			};
+			//return res.json(allData);
+			return res.end(JSON.stringify(allData));
+
+		})
 	});
 
 
@@ -214,6 +240,41 @@ module.exports = function(app) {
 		})
 	});
 
+
+	app.get('/article/:id', function(req, res) {
+		var id = req.params.id;
+		var single = new Single({id:id})
+		single.getPost(function(err,data){
+			var allData = {
+				error:null,
+				result:null
+			}
+			console.log(data)
+			if (err) {
+				console.log(err)
+				req.flash('error', '出错了');
+				allData.error = err
+				//return res.end(JSON.stringify(err));
+			};
+			if (data) {
+				allData.result = data
+				//return res.end(JSON.stringify(data));
+			};
+			//return res.json(allData);
+			return res.end(JSON.stringify(allData));
+
+		})
+
+
+
+		/*res.render('reg', {
+			title: '注册',
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString(),
+			user: req.session.user
+		});*/
+
+	});
 
 	app.get('/help', function(req, res) {
 		res.send('Birds home page');
