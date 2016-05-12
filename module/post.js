@@ -1,7 +1,7 @@
 /*var conn = require('../conn')
 var mysql = require('mysql')
 var pool = mysql.createPool(conn);*/
-var query = require('../config/db')
+var query = require('../config/pool')
 
 
 

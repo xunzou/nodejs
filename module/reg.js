@@ -19,7 +19,7 @@ var pool = mysql.createPool(conn);*/
 		// Don't use the connection here, it has been returned to the pool.
 	});
 });*/
-var query = require('../config/db')
+var query = require('../config/pool')
 
 
 

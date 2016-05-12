@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var bodyParser = require('body-parser');
-var conn = require('./config/conn');
-var sessionStore = new MySQLStore(conn);
+var db = require('./config/db');
+var sessionStore = new MySQLStore(db);
 var flash = require('connect-flash');
 //路由
 var routes = require('./routes/routes.js');

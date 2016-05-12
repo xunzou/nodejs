@@ -1,4 +1,4 @@
-var query = require('../config/db')
+var query = require('../config/pool')
 
 function ArticleList(options) {
 	this.userId = options && options.userId;

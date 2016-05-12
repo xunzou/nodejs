@@ -1,7 +1,6 @@
 // 全站命名空间
 $(function() {
     var indexFn = function() {
-        console.log(11)
         this.init()
     }
     indexFn.prototype = {
