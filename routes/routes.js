@@ -241,7 +241,7 @@ module.exports = function(app) {
 	});
 
 
-	app.get('/article/:id', function(req, res) {
+	app.get('/article/:id.html', function(req, res) {
 		var id = req.params.id;
 		var single = new Single({id:id})
 		single.getPost(function(err,data){
@@ -267,12 +267,10 @@ module.exports = function(app) {
 
 
 
-		/*res.render('reg', {
-			title: '注册',
-			success: req.flash('success').toString(),
-			error: req.flash('error').toString(),
-			user: req.session.user
-		});*/
+		res.render('/article', {
+			//"layout":"article.html",
+			title: '文章页面'
+		});
 
 	});
 
