@@ -260,11 +260,11 @@ module.exports = function(app) {
 				var da = data[0]
 				res.render('article', {
 					//"layout":"article.html",
-					title: '文章页面',
+					//title: '文章页面',
+					postTitle: da.title,
 					success: req.flash('success').toString(),
 					error: req.flash('error').toString(),
 					user: req.session.user,
-					postTitle: da.title,
 					postAuthor: da.userId,
 					postDate: da.addDate,
 					postSummary: da.summary,
