@@ -2,6 +2,7 @@
 var mysql = require('mysql')
 var pool = mysql.createPool(conn);*/
 var query = require('../config/pool')
+var md5 = require("../util/md5");
 
 
 
@@ -19,16 +20,22 @@ Post.prototype = {
 		var self = this;
 		var insertSQL = 'insert into article(title,summary,article,userId) values("' + self.title + '","' + self.summary + '","' + self.article + '","' + self.userId + '");';
 		query(insertSQL, function(err, data, fields) {
-			console.log(err, data, 111111111)
 			if (err) {
 				console.log(err,44)
 				//connection.release();
 				return callback(err)
 			};
+			var insertId = data.insertId,
+				idMD5 = md5(insertId)
 
+			var updateSQL = 'update article set path="'+ idMD5.substring(5,17) +'" where id="'+ insertId +'"'
+			query(updateSQL, function(err, data, fields) {
+				console.log('更新成功')
+				console.log(data)
+				callback(null,data)
+			});
 			console.log('--------------------------INSERT----------------------------');
 			//console.log(rows)
-			callback(null,data)
 			console.log('--------------------------INSERT----------------------------');
 		});
 

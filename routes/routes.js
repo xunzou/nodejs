@@ -243,10 +243,10 @@ module.exports = function(app) {
 	});
 
 
-	app.get('/article/:id.html', function(req, res) {
-		var id = req.params.id;
+	app.get('/article/:path', function(req, res) {
+		var path = req.params.path;
 		var single = new Single({
-			id: id
+			path: path
 		})
 		single.getPost(function(err, data) {
 			console.log(data)

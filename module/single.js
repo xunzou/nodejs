@@ -6,7 +6,7 @@ var query = require('../config/pool')
 
 
 function Single(options) {
-	this.id = options && options.id;
+	this.path = options && options.path;
 };
 
 module.exports = Single
@@ -14,7 +14,7 @@ module.exports = Single
 Single.prototype = {
 	getPost: function(callback) {
 		var self = this;
-		var selectSQL = 'select * from `article` WHERE `id`="' + self.id + '"';
+		var selectSQL = 'select * from `article` WHERE `path`="' + self.path + '"';
 		query(selectSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err)

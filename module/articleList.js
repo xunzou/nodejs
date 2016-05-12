@@ -9,9 +9,9 @@ module.exports = ArticleList
 ArticleList.prototype = {
 	getArticle: function(callback) {
 		var self = this;
-		var selectSQL = 'select id,title,addDate from article order by id DESC limit 10';
+		var selectSQL = 'select id,path,title,addDate from article order by id DESC limit 10';
 		if (self.userId) {
-			selectSQL = 'select id,title,addDate from article WHERE userId="' + self.userId + '" order by id DESC limit 10';
+			selectSQL = 'select id,path,title,addDate from article WHERE userId="' + self.userId + '" order by id DESC limit 10';
 		};
 		console.log(selectSQL)
 		query(selectSQL, function(err, data, fields) {
