@@ -68,23 +68,6 @@ $(function() {
             request.send()
             //request.send(JSON.stringify({userId: 1}))
             //request.send(JSON.stringify("fname=Bill&lname=Gates"))
-        },
-        createDom: function(data) {
-
-            var Hello = React.createClass({
-                //displayName: 'Hello',
-                render: function() {
-                    //return React.createElement("div", null, "Hello ", this.props.name);
-                    return 1
-                }
-            });
-
-            ReactDOM.render(
-                React.createElement(Hello, {
-                name: "World"
-            }),
-                document.getElementById('myArticle'));
-
         }
     }
     var myGetArticle = new getArticle()

@@ -1,16 +1,33 @@
-/*var mysql = require('mysql');
-var conn = mysql.createConnection({
-	host: '10.110.30.30',
-	user: 'php',
-	password: 'php',
-	database: 'mynode'
-});*/
-module.exports = {
+var mysql = require('mysql');
+var conn = require('./conn');
+var pool = mysql.createPool(conn);
+
+var query = function(sql, callback) {
+	pool.getConnection(function(err, conn) {
+		if (err) {
+			callback(err, null, null);
+		} else {
+			conn.query(sql, function(qerr, vals, fields) {
+				//释放连接 
+				conn.release();
+				//事件驱动回调 
+				callback(qerr, vals, fields);
+			});
+		}
+	});
+};
+
+module.exports = query;
+
+
+/*module.exports = {
 	host: '127.0.0.1',
 	user: 'root',
 	password: 'root',
 	database: 'mynode'
 }
+*/
+
 
 
 /*

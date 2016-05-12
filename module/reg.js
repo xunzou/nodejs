@@ -1,6 +1,6 @@
-var conn = require('../conn')
+/*var conn = require('../conn')
 var mysql = require('mysql')
-var pool = mysql.createPool(conn);
+var pool = mysql.createPool(conn);*/
 /*pool.getConnection(function(err, connection) {
 	// Use the connection
 	connection.query('SELECT * FROM user', function(err, rows) {
@@ -19,6 +19,8 @@ var pool = mysql.createPool(conn);
 		// Don't use the connection here, it has been returned to the pool.
 	});
 });*/
+var query = require('../config/db')
+
 
 
 function Reg(user) {
@@ -32,9 +34,23 @@ module.exports = Reg
 Reg.prototype = {
 	saveUser: function(callback) {
 		var self = this;
+		var insertSQL = 'insert into user(name,password) values("' + self.name + '",' + self.password + ')';
+		query(insertSQL, function(err, data, fields) {
+			if (err) {
+				console.log(err, 44)
+					//connection.release();
+				return callback(err)
+			};
+
+			console.log('--------------------------INSERT----------------------------');
+			//console.log(rows)
+			callback(null, data)
+			console.log('--------------------------INSERT----------------------------');
+		});
+
 		//要存入数据库的用户信息文档
 		//var user =  this.name,this.password
-		pool.getConnection(function(err, connection) {
+		/*pool.getConnection(function(err, connection) {
 
 			var insertSQL = 'insert into user(name,password) values("' + self.name + '",' + self.password + ');';
 			console.log(insertSQL)
@@ -56,24 +72,37 @@ Reg.prototype = {
 
 				// Don't use the connection here, it has been returned to the pool.
 			});
-		});
+		});*/
 
 	},
 	getUser: function(name, callback) {
-		pool.getConnection(function(err, connection) {
-			var selectSQL = 'select * from user where name="'+ name +'"'
+		var selectSQL = 'select * from user where name="' + name + '"';
+		query(selectSQL, function(err, data, fields) {
+			if (err) {
+				console.log(err)
+					//connection.release();
+				return callback(err)
+			};
+
+			console.log('--------------------------SELECT----------------------------');
+			//console.log(rows)
+			callback(null, data)
+			console.log('--------------------------SELECT----------------------------');
+		});
+		/*pool.getConnection(function(err, connection) {
+			var selectSQL = 'select * from user where name="' + name + '"'
 			console.log(selectSQL)
-			// Use the connection
+				// Use the connection
 			connection.query(selectSQL, function(err, rows) {
 				if (err) {
-					console.log(err,68)
+					console.log(err, 68)
 					connection.release();
 					return callback(err)
 				};
 
 				console.log('--------------------------SELECT----------------------------');
 				//console.log(rows)
-				callback(null,rows)
+				callback(null, rows)
 				console.log('--------------------------SELECT----------------------------');
 
 				// And done with the connection.
@@ -81,6 +110,6 @@ Reg.prototype = {
 
 				// Don't use the connection here, it has been returned to the pool.
 			});
-		});
+		});*/
 	}
 }

@@ -166,20 +166,20 @@ module.exports = function(app) {
 				userId: userId
 			})
 			/*console.log(res)*/
-		console.log(req.body)
+		/*console.log(req.body)
 		var params;
 		for (var key in req.body) {
 			params = JSON.parse(key)
 		};
 		console.log(typeof params)
-		console.log(params)
+		console.log(params)*/
 		article.getArticle(function(err, data) {
 			var allData = {
 				error: null,
 				result: null
 			}
 			if (err) {
-				console.log(err)
+				//console.log(err)
 				req.flash('error', '出错了');
 				allData.error = err
 					//return res.end(JSON.stringify(err));

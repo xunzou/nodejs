@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var bodyParser = require('body-parser');
-var conn = require('./conn')
+var conn = require('./config/conn');
 var sessionStore = new MySQLStore(conn);
 var flash = require('connect-flash');
 //路由
