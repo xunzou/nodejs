@@ -37,21 +37,21 @@ module.exports = function(app) {
 
 	app.post('/getAllArticle.json', function(req, res) {
 		var article = new ArticleList()
-		article.getArticle(function(err,data){
+		article.getArticle(function(err, data) {
 			var allData = {
-				error:null,
-				result:null
+				error: null,
+				result: null
 			}
 			console.log(data)
 			if (err) {
 				console.log(err)
 				req.flash('error', '出错了');
 				allData.error = err
-				//return res.end(JSON.stringify(err));
+					//return res.end(JSON.stringify(err));
 			};
 			if (data) {
 				allData.result = data
-				//return res.end(JSON.stringify(data));
+					//return res.end(JSON.stringify(data));
 			};
 			//return res.json(allData);
 			return res.end(JSON.stringify(allData));
@@ -162,8 +162,10 @@ module.exports = function(app) {
 	});
 	app.post('/home/getArticle.json', function(req, res) {
 		var userId = req.session && req.session.userId;
-		var article = new ArticleList({userId:userId})
-		/*console.log(res)*/
+		var article = new ArticleList({
+				userId: userId
+			})
+			/*console.log(res)*/
 		console.log(req.body)
 		var params;
 		for (var key in req.body) {
@@ -171,20 +173,20 @@ module.exports = function(app) {
 		};
 		console.log(typeof params)
 		console.log(params)
-		article.getArticle(function(err,data){
+		article.getArticle(function(err, data) {
 			var allData = {
-				error:null,
-				result:null
+				error: null,
+				result: null
 			}
 			if (err) {
 				console.log(err)
 				req.flash('error', '出错了');
 				allData.error = err
-				//return res.end(JSON.stringify(err));
+					//return res.end(JSON.stringify(err));
 			};
 			if (data) {
 				allData.result = data
-				//return res.end(JSON.stringify(data));
+					//return res.end(JSON.stringify(data));
 			};
 			//return res.json(allData);
 			return res.end(JSON.stringify(allData));
@@ -243,34 +245,35 @@ module.exports = function(app) {
 
 	app.get('/article/:id.html', function(req, res) {
 		var id = req.params.id;
-		var single = new Single({id:id})
-		single.getPost(function(err,data){
-			var allData = {
-				error:null,
-				result:null
-			}
+		var single = new Single({
+			id: id
+		})
+		single.getPost(function(err, data) {
 			console.log(data)
 			if (err) {
 				console.log(err)
 				req.flash('error', '出错了');
-				allData.error = err
+				return res.redirect('/');
 				//return res.end(JSON.stringify(err));
 			};
 			if (data) {
-				allData.result = data
-				//return res.end(JSON.stringify(data));
+				var da = data[0]
+				res.render('article', {
+					//"layout":"article.html",
+					title: '文章页面',
+					success: req.flash('success').toString(),
+					error: req.flash('error').toString(),
+					user: req.session.user,
+					postTitle: da.title,
+					postAuthor: da.userId,
+					postDate: da.addDate,
+					postSummary: da.summary,
+					post: da.article,
+				});
 			};
-			//return res.json(allData);
-			return res.end(JSON.stringify(allData));
-
 		})
 
 
-
-		res.render('/article', {
-			//"layout":"article.html",
-			title: '文章页面'
-		});
 
 	});
 

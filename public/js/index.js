@@ -26,7 +26,7 @@ $(function() {
                         if (result && result.length) {
                             var html = '';
                             for (var i = 0; i < result.length; i++) {
-                                html += '<li><a href="/article/'+ result[i].id +'">' + result[i].title + '</a>['+ result[i].addDate +']</li>'
+                                html += '<li><a href="/article/'+ result[i].id +'.html">' + result[i].title + '</a>['+ result[i].addDate +']</li>'
                             };
                             $('#myArticle').html('<ul>'+ html +'</ul>')
                         } else {
