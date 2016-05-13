@@ -1,15 +1,13 @@
 var query = require('../config/pool')
 
-
-var sql      = require('mysql');
+/*var sql      = require('mysql');
 var sqldb = require('../config/db');
 var connection = sql.createConnection({
 	host: '10.110.30.84',
 	user: 'roc',
 	password: '123456',
 	database: 'test_servicedb'
-});
-
+});*/
 
 
 
@@ -31,15 +29,12 @@ ArticleList.prototype = {
 		query(selectSQL, function(err, data, fields) {
 			//console.log(data)
 			if (err) {
-				console.log(err, '--------------------articleList-------------------')
+				//console.log(err)
 				//connection.release();
 				return callback(err)
 			};
-
-			console.log('--------------------------SELECT----------------------------');
-			//console.log(rows)
+			console.log(data)
 			callback(null, data)
-			console.log('--------------------------SELECT----------------------------');
 		});
 		/*pool.getConnection(function(err, connection) {
 			// Use the connection
@@ -64,7 +59,7 @@ ArticleList.prototype = {
 				// Don't use the connection here, it has been returned to the pool.
 			});
 		});*/
-	},
+	}/*,
 	getPost:function(callback){
 		//connection.query('select id,path,title,addDate from article order by id DESC limit 10', function(err, data) {
 		connection.query('select * from t_pro_blog_post order by id DESC limit 10', function(err, data) {
@@ -76,5 +71,5 @@ ArticleList.prototype = {
 		  	callback(null, data)
 		  	connection.end()
 		});
-	}
+	}*/
 }

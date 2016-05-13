@@ -5,12 +5,16 @@
 
 
     	
-
+		<a href="#" id="getNew">获取最新文章</a>
 		<div id="myArticle"></div>
 
 		
     	<div class="news" id="myPost">
-    		1
+    		<% if(myPost){ %>
+    			<% for(var i = 0;i<myPost.length;i++){ %>
+					<div> <%= myPost[i].title %> </div>
+    			<% } %>
+    		<% } %>
     	</div>
 
 	    <!-- <ul class="pagination">

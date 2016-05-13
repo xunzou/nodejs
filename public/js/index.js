@@ -6,12 +6,18 @@ $(function() {
     indexFn.prototype = {
         init: function() {
             this.getData()
+            var self = this;
             //this.getAjaxData()
 
             /*for (var i = 1; i < 13; i++) {
                 console.log(i,md5(i).substring(5,17))
             };*/
-            this.getPost();
+            //this.getPost();
+            $('#getNew').click(function(e){
+                e.preventDefault()
+                console.log(this.innerText)
+                self.getData()
+            })
         },
         getData: function() {
             var self = this,
