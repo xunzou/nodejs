@@ -10,6 +10,7 @@ function Post(options) {
 	this.title = options.title;
 	this.summary = options.summary;
 	this.article = options.article;
+	this.cate = options.cate;
 	this.userId = options.userId;
 };
 
@@ -18,7 +19,7 @@ module.exports = Post
 Post.prototype = {
 	saveArticle: function(callback) {
 		var self = this;
-		var insertSQL = 'insert into article(title,summary,article,addDate,userId) values("' + self.title + '","' + self.summary + '","' + self.article + '","' + Date.parse(new Date()) + '","' + self.userId + '");';
+		var insertSQL = 'insert into article(title,summary,article,addDate,userId,cate) values("' + self.title + '","' + self.summary + '","' + self.article + '","' + Date.parse(new Date()) + '","' + self.userId + '");';
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err,44)

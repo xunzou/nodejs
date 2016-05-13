@@ -30,13 +30,16 @@ exports.savePost = function(req, res) {
 	var article_title = req.body.article_title,
 		article_con = req.body.article_con,
 		article_summary = req.body.article_summary,
+		cate = req.body.cate,
 		userId = req.session.userId,
 		o = {
 			title: article_title,
 			article: article_con,
 			summary: article_summary,
-			userId: userId
+			userId: userId,
+			cate:cate
 		};
+	console.log(req.body.cate)
 	//return
 	var post = new Post(o)
 	post.saveArticle(function(err, rows) {
