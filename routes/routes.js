@@ -29,7 +29,7 @@ module.exports = function(app) {
 		res.render('error', {
 			title: '404',
 			message: "404",
-			status: 404
+			status: '404'
 		});
 	});
 
@@ -47,6 +47,29 @@ module.exports = function(app) {
 	app.post('/getAllArticle.json', function(req, res) {
 		var article = new ArticleList()
 		article.getArticle(function(err, data) {
+			var allData = {
+				error: null,
+				result: null
+			}
+			console.log(data)
+			if (err) {
+				console.log(err)
+				req.flash('error', '出错了');
+				allData.error = err
+					//return res.end(JSON.stringify(err));
+			};
+			if (data) {
+				allData.result = data
+					//return res.end(JSON.stringify(data));
+			};
+			//return res.json(allData);
+			return res.end(JSON.stringify(allData));
+
+		})
+	});
+	app.post('/getArticle.json', function(req, res) {
+		var article = new ArticleList()
+		article.getPost(function(err, data) {
 			var allData = {
 				error: null,
 				result: null
@@ -89,6 +112,18 @@ module.exports = function(app) {
 			password: password,
 			email: email
 		})
+		if (!name) {
+			req.flash('error', '用户名不能为空');
+			return res.redirect('/reg'); //返回注册页
+		};
+		if (!email) {
+			req.flash('error', '邮箱不能为空');
+			return res.redirect('/reg'); //返回注册页
+		};
+		if (!password) {
+			req.flash('error', '密码不能为空');
+			return res.redirect('/reg'); //返回注册页
+		};
 		console.log(name, password, email)
 		reg.getUser(name, function(err, user) {
 			console.log(err, user, 555888)

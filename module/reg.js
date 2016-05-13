@@ -34,10 +34,11 @@ module.exports = Reg
 Reg.prototype = {
 	saveUser: function(callback) {
 		var self = this;
-		var insertSQL = 'insert into user(name,password,regDate,lastDateLog) values("' + self.name + '",' + md5(self.password) + ','+ Date.parse(new Date()) +','+ Date.parse(new Date()) +')';
+		var insertSQL = 'insert into user(name,password,regDate,lastDateLog) values("' + self.name + '","' + md5(self.password) + '",'+ Date.parse(new Date()) +','+ Date.parse(new Date()) +')';
+		console.log(insertSQL)
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
-				console.log(err, 44)
+				console.log(err)
 					//connection.release();
 				return callback(err)
 			};
