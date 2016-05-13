@@ -65,5 +65,21 @@ Post.prototype = {
 				// Don't use the connection here, it has been returned to the pool.
 			});
 		});*/
+	},
+
+	getCate: function(callback) {
+		var self = this;
+		var insertSQL = 'select cateId,cateName from category WHERE userId="' + self.userId + '"';
+		query(insertSQL, function(err, data, fields) {
+			if (err) {
+				console.log(err)
+				//connection.release();
+				return callback(err)
+			};			
+			console.log('--------------------------select----------------------------');
+			callback(null,data)
+			//console.log(rows)
+			console.log('--------------------------select----------------------------');
+		});
 	}
 }

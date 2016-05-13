@@ -9,6 +9,16 @@
     			<input type="text" name="article_title" id="articleTitle" class="ipt" />
     		</div>
             <div class="reg_item">
+                <label for="">类目</label>
+                <select name="cate" id="cate">
+                    <option value="0">未分类</option>
+                    <% if (cate) { %>
+                        <% for(var i = 0;i< cate.length;i++){ %>
+                        <option value="<%= cate[i].cateId %>"><%= cate[i].cateName %></option>
+                        <% } %>
+                    <% } %>
+                </select>
+            </div>            <div class="reg_item">
                 <label for="">摘要</label>
                 <textarea name="article_summary" id="articleSummary" cols="40" rows="2"></textarea>
             </div>

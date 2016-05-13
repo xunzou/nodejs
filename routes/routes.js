@@ -17,7 +17,6 @@ module.exports = function(app) {
 	}
 
 	function checkNotLogin(req, res, next) {
-		console.log(req.session.user, 1111)
 		if (req.session.user) {
 			req.flash('error', '已登录!');
 			return res.redirect('back'); //返回之前的页面
@@ -220,12 +219,26 @@ module.exports = function(app) {
 	// define the post page route
 	app.get('/post', checkLogin)
 	app.get('/post', function(req, res) {
-		res.render('post', {
-			title: 'post',
-			success: req.flash('success').toString(),
-			error: req.flash('error').toString(),
-			user: req.session.user
-		});
+		var userId = req.session.userId,
+			post = new Post({userId:userId});
+		post.getCate(function(err, data) {
+			if (err) {
+				console.log(err)
+				req.flash('error', '出错了');
+				return res.redirect('/post'); //返回文章页
+			};
+			if (data) {
+				console.log(data)
+				res.render('post', {
+					title: 'post',
+					cate: data,
+					success: req.flash('success').toString(),
+					error: req.flash('error').toString(),
+					user: req.session.user
+				});
+			};
+		})
+		
 	});
 	app.post('/post', checkLogin)
 	app.post('/post', function(req, res) {
@@ -241,7 +254,6 @@ module.exports = function(app) {
 			};
 		//return
 		var post = new Post(o)
-		console.log('--------------------------insertinsertinsertinsertinsert----------------------------')
 		post.saveArticle(function(err, data) {
 			if (err) {
 				console.log(err)
