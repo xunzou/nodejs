@@ -2,7 +2,7 @@
 var mysql = require('mysql')
 var pool = mysql.createPool(conn);*/
 var query = require('../config/pool')
-var md5 = require("../util/md5");
+var md5 = require("./util/md5");
 
 
 
@@ -18,7 +18,7 @@ module.exports = Post
 Post.prototype = {
 	saveArticle: function(callback) {
 		var self = this;
-		var insertSQL = 'insert into article(title,summary,article,userId) values("' + self.title + '","' + self.summary + '","' + self.article + '","' + self.userId + '");';
+		var insertSQL = 'insert into article(title,summary,article,addDate,userId) values("' + self.title + '","' + self.summary + '","' + self.article + '","' + Date.parse(new Date()) + '","' + self.userId + '");';
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err,44)

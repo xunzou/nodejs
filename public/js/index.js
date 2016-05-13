@@ -29,7 +29,7 @@ $(function() {
                         if (result && result.length) {
                             var html = '';
                             for (var i = 0; i < result.length; i++) {
-                                html += '<li><a href="/article/'+ result[i].path +'">' + result[i].title + '</a>['+ result[i].addDate +']</li>'
+                                html += '<li><a href="/p/'+ result[i].path +'">' + result[i].title + '</a>['+ XZ.formatDate(result[i].addDate,'YYYY/MM/DD') +']</li>'
                             };
                             $('#myArticle').html('<ul>'+ html +'</ul>')
                         } else {

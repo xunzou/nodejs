@@ -20,7 +20,7 @@ var pool = mysql.createPool(conn);*/
 	});
 });*/
 var query = require('../config/pool')
-
+var md5 = require("./util/md5");
 
 
 function Reg(user) {
@@ -34,7 +34,7 @@ module.exports = Reg
 Reg.prototype = {
 	saveUser: function(callback) {
 		var self = this;
-		var insertSQL = 'insert into user(name,password) values("' + self.name + '",' + self.password + ')';
+		var insertSQL = 'insert into user(name,password,regDate,lastDateLog) values("' + self.name + '",' + md5(self.password) + ','+ Date.parse(new Date()) +','+ Date.parse(new Date()) +')';
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err, 44)
@@ -111,5 +111,20 @@ Reg.prototype = {
 				// Don't use the connection here, it has been returned to the pool.
 			});
 		});*/
+	},
+	updateInfo:function(id,callback){
+		var updateSQL = 'update user set lastDateLog=' + Date.parse(new Date()) + ' where id=' + id;
+		query(updateSQL, function(err, data, fields) {
+			if (err) {
+				console.log(err)
+					//connection.release();
+				return callback(err)
+			};
+
+			console.log('--------------------------SELECT----------------------------');
+			//console.log(rows)
+			callback(null, data)
+			console.log('--------------------------SELECT----------------------------');
+		});
 	}
 }

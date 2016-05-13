@@ -1,8 +1,10 @@
 //router
+var md5 = require("../module/util/md5");
 var Reg = require('../module/reg.js');
 var Post = require('../module/post.js');
 var ArticleList = require('../module/articleList.js');
 var Single = require('../module/Single.js');
+
 
 module.exports = function(app) {
 
@@ -23,18 +25,26 @@ module.exports = function(app) {
 		next();
 	}
 
+	/* GET 404 page. */
+	app.get('/404', function(req, res) {
+		res.render('error', {
+			title: '404',
+			message: "404",
+			status: 404
+		});
+	});
 
 	/* GET home page. */
 	app.get('/', function(req, res) {
 		res.render('index', {
-			title: 'Express',
+			title: 'myNodeJS',
 			success: req.flash('success').toString(),
 			error: req.flash('error').toString(),
 			user: req.session.user
 		});
 	});
 
-
+	//get home article
 	app.post('/getAllArticle.json', function(req, res) {
 		var article = new ArticleList()
 		article.getArticle(function(err, data) {
@@ -131,19 +141,23 @@ module.exports = function(app) {
 				console.log('暂无此人')
 				return res.redirect('/login'); //返回登录页
 			};
-			if (password != data[0].password) {
+			if (md5(password) != data[0].password) {
 				console.log('密码不对哦！')
 				req.flash('error', '密码不对哦！');
 				return res.redirect('/login'); //返回登录页
 			};
 			if (data.length) {
+				var userId = data[0].id;
 				console.log('登录成功')
 				console.log(JSON.stringify(data))
+				//更新登录时间信息
+				reg.updateInfo(userId,function(err,data){})
+
 				req.session.user = data[0].name; //用户信息存入 session
-				req.session.userId = data[0].id; //用户id存入 session
-				console.log(data[0].name)
-				console.log(data[0].id)
-				console.log(req.session.user)
+				req.session.userId = userId; //用户id存入 session
+				//console.log(data[0].name)
+				//console.log(data[0].id)
+				//console.log(req.session.user)
 				req.flash('success', '登录成功!');
 				res.redirect('/home'); //返回home
 			};
@@ -243,7 +257,7 @@ module.exports = function(app) {
 	});
 
 
-	app.get('/article/:path', function(req, res) {
+	app.get('/p/:path', function(req, res) {
 		var path = req.params.path;
 		var single = new Single({
 			path: path
