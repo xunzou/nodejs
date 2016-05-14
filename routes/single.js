@@ -19,6 +19,7 @@ exports.getSingle = function(req, res) {
 			res.render('article', {
 				//"layout":"article.html",
 				title: '文章页面',
+				nav: 'page',
 				postTitle: da.title,
 				success: req.flash('success').toString(),
 				error: req.flash('error').toString(),
@@ -28,6 +29,8 @@ exports.getSingle = function(req, res) {
 				postSummary: da.summary,
 				post: da.article,
 			});
+			
+			res.end()
 		};
 	})
 

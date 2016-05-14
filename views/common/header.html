@@ -5,8 +5,8 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <title><%= title %></title>
-	    <!-- <link rel='stylesheet' href='/css/style.css' /> -->
 		<link rel="stylesheet" href="/css/bootstrap.min.css">
+	    <link rel='stylesheet' href='/css/style.css' />
 		<!-- <script src="js/plugin/react.min.js"></script>
 	    <script src="js/plugin/react-dom.min.js"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script> -->
@@ -15,28 +15,26 @@
 	    <script src="/js/core.js"></script>
 	</head>
   	<body>
-  		<nav class="navbar navbar-default" role="navigation">
-			<div class="navbar-header">
-				<% if (user) { %>
-					<a class="navbar-brand" href="/"><%= user %>欢迎你</a>
-		        <% } else { %>
-		        	<a class="navbar-brand" href="/">nodeJS</a>
-		        <% } %>
-			</div>
-			<div>
-			    <ul class="nav navbar-nav">
-			        <li class="active"><a href="/">首页</a></li>
-			        <% if (user) { %>
-			        <li><a href="/home">用户中心</a></li>
-			        <li><a href="/post">发文章</a></li>
-			        <li><a href="/logout">退出</a></li>
-			        <% } else { %>
-			        <li><a href="/reg">注册</a></li>
-			        <li><a href="/login">登录</a></li>
-			        <% } %>
-			    </ul>
-			</div>
-		</nav>
+  		<header class="header">
+	  		<nav class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/"><%= user ? user : 'NodeJS' %>欢迎你</a>
+				</div>
+				<div>
+				    <ul class="nav navbar-nav">
+				        <li <%= nav=='index' ? 'class=active' : '' %>><a href="/">首页</a></li>
+				        <% if (user) { %>
+				        <li <%= nav=='home' ? ' class=active' : '' %>><a href="/home">用户中心</a></li>
+				        <li <%= nav=='post' ? ' class=active' : '' %>><a href="/post">发文章</a></li>
+				        <li><a href="/logout">退出</a></li>
+				        <% } else { %>
+				        <li <%= nav=='reg' ? ' class=active' : '' %>><a href="/reg">注册</a></li>
+				        <li <%= nav=='login' ? ' class=active' : '' %>><a href="/login">登录</a></li>
+				        <% } %>
+				    </ul>
+				</div>
+			</nav>
+		</header>
 
 
 		<!-- <ul class="nav nav-pills">
@@ -47,3 +45,4 @@
 		   	<li><a href="#">Java</a></li>
 		   	<li><a href="#">PHP</a></li>
 		</ul> -->
+		<div class="content">

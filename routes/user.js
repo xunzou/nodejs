@@ -42,6 +42,7 @@ exports.regPost = function(req, res) {
 			req.flash('success', '注册成功!');
 			//console.log(user)
 			res.redirect('/home'); //返回home
+			res.end()
 		})
 
 	})
@@ -83,6 +84,7 @@ exports.loginPost = function(req, res) {
 			//console.log(req.session.user)
 			req.flash('success', '登录成功!');
 			res.redirect('/home'); //返回home
+			res.end()
 		};
 	})
 }

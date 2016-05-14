@@ -16,11 +16,13 @@ exports.getCatePost = function(req, res) {
 			//console.log(data)
 			res.render('post', {
 				title: 'post',
+				nav: 'post',
 				cate: data,
 				success: req.flash('success').toString(),
 				error: req.flash('error').toString(),
 				user: req.session.user
 			});
+			res.end()
 		};
 	})
 
@@ -52,6 +54,7 @@ exports.savePost = function(req, res) {
 			//console.log(JSON.stringify(rows))
 			req.flash('success', '发表成功!');
 			res.redirect('/home'); //返回home
+			res.end()
 		};
 	})
 };
