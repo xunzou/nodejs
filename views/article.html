@@ -1,14 +1,15 @@
 <%- include('common/header.html') -%>
-    	<h1><%= postTitle %></h1>
+    	<h1><%= post.title %></h1>
     	<div class="post" id="article">
     		<div class="post_data">
-    			作者：<%= postAuthor %><%= postDate %>
+                <% var postId = post.id,path = post.path; %>
+    			作者：<%= post.name %> 发表时间：<%= post.addDate %> 分类：<%= post.cateName %> <%- post.name == user ? '<a href="/editPost/'+path+'" pid="'+ postId +'" title="编辑">编辑</a>' : '' %>
     		</div>	
     		<div class="summary">
-    			<%= postSummary %>
+    			<%= post.summary %>
     		</div>
     		<div class="entry">
-    			<%= post %>
+    			<%= post.article %>
     		</div>
     	</div>
     	

@@ -6,18 +6,18 @@ exports.getCatePost = function(req, res) {
 		post = new Post({
 			userId: userId
 		});
-	post.getCate(function(err, data) {
+	post.getCate(function(err, rows) {
 		if (err) {
 			//console.log(err)
 			req.flash('error', '出错了');
 			return res.redirect('/post'); //返回文章页
 		};
-		if (data) {
-			//console.log(data)
+		if (rows) {
+			//console.log(rows)
 			res.render('post', {
 				title: 'post',
 				nav: 'post',
-				cate: data,
+				cate: rows,
 				success: req.flash('success').toString(),
 				error: req.flash('error').toString(),
 				user: req.session.user
@@ -48,7 +48,7 @@ exports.savePost = function(req, res) {
 		if (err) {
 			//console.log(err)
 			req.flash('error', '出错了');
-			return res.redirect('/post'); //返回登录页
+			return res.redirect('/post'); //返回编辑页
 		};
 		if (rows) {
 			//console.log(JSON.stringify(rows))

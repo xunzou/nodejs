@@ -19,7 +19,7 @@ module.exports = Post
 Post.prototype = {
 	saveArticle: function(callback) {
 		var self = this;
-		var insertSQL = 'insert into article(title,summary,article,addDate,userId,cate) values("' + self.title + '","' + self.summary + '","' + self.article + '","' + Date.parse(new Date()) + '","' + self.userId + '");';
+		var insertSQL = 'insert into article(title,summary,article,addDate,userId,cate) values("' + self.title + '","' + self.summary + '","' + self.article + '","' + Date.parse(new Date()) + '","' + self.userId + '","' + self.cate + '");';
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err,44)
@@ -32,7 +32,7 @@ Post.prototype = {
 			var updateSQL = 'update article set path="'+ idMD5.substring(5,17) +'" where id="'+ insertId +'"'
 			query(updateSQL, function(err, data, fields) {
 				console.log('更新成功')
-				console.log(data)
+				console.log(data),"' + self.userId + '"
 				callback(null,data)
 			});
 			console.log('--------------------------INSERT----------------------------');

@@ -1,0 +1,52 @@
+<%- include('common/header.html') -%>
+    	<h1><%= title %></h1>
+    	<p>Welcome to <%= user %></p>
+        <% if(post){ %>
+            <% var title = post.title, path = post.path, myCateId = post.cate,summary = post.summary,article = post.article; %>
+        <% } %>
+
+    	<form action="/editPost" method="post">
+            <div class="reg_item">
+                <input type="hidden" name="path" id="articlePath" value="<%= path %>" class="ipt" />
+            </div>
+    		<div class="reg_item">
+    			<label for="">标题</label>
+    			<input type="text" name="article_title" id="articleTitle" value="<%= title ? title : '' %>" class="ipt" />
+    		</div>
+            <div class="reg_item">
+                <label for="">类目</label>
+                <select name="cate" id="cate">
+                    <option value="0">未分类</option>
+                    <% if (cate) { %>
+                        <% for(var i = 0;i< cate.length;i++){ %>
+                            <% if (myCateId && myCateId != 0) { %>
+                                <option value="<%= cate[i].cateId %>" <%= myCateId ? 'selected' : '' %>><%= cate[i].cateName %></option>
+                            <% } else {%>
+                                <option value="<%= cate[i].cateId %>"><%= cate[i].cateName %></option>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                    
+                </select>
+            </div>            
+            <div class="reg_item">
+                <label for="">摘要</label>
+                <textarea name="article_summary" id="articleSummary" cols="40" rows="2"><%= summary ? summary : '' %></textarea>
+            </div>
+            <div class="reg_item">
+                <label for="">内容</label>
+                <textarea name="article_con" id="articleCon" cols="40" rows="5"><%= article ? article : '' %></textarea>
+            </div>
+    		<div class="reg_item">
+    			<label for=""> </label>
+    			<input type="submit" class="btn" />
+    		</div>
+    	</form>
+
+        <% if (success) { %>
+            <div class="alert alert-success"><%= success %></div>
+        <% } %>
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+<%- include('common/footer.html') -%>

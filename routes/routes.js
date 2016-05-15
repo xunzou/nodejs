@@ -93,20 +93,38 @@ module.exports = function(app) {
 
 
 	// define the post page route
+	//发表文章
 	app.get('/post', checkLogin)
 	app.get('/post', post.getCatePost);
+	//提交文章
 	app.post('/post', checkLogin)
 	app.post('/post', post.savePost);
-
-
+	
+	//文章显示页
 	app.get('/p/:path', single.getSingle);
 
-	app.get('/help', function(req, res) {
+	//获取编辑的文章
+	app.get('/editPost/:path', checkLogin)
+	app.get('/editPost/:path', single.getEditSingle);
+	//保存编辑的文章`
+	app.post('/editPost', checkLogin)
+	app.post('/editPost', single.editSingle);
+
+	/*app.get('/help', function(req, res) {
 		res.send('Birds home page');
 	});
 	// define the about route
 	app.get('/help/about', function(req, res) {
 		res.send('About birds');
+	});*/
+	//下面的页面是不让用户访问的页面
+	//返回首页
+	app.get('/p',function(req, res) {
+		res.redirect('/');
+	});
+	//返回首页
+	app.get('/editPost',function(req, res) {
+		res.redirect('/');
 	});
 
 };

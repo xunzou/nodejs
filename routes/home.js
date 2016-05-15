@@ -1,6 +1,6 @@
 //用户相关
 var ArticleList = require('../module/articleList.js');
-
+var moment = require('moment');
 
 exports.getLatestPost = function(req, res) {
 	var article = new ArticleList()
@@ -29,14 +29,16 @@ exports.getLatestPost = function(req, res) {
 
 exports.getLatestPostEjs = function(req, res) {
 	var article = new ArticleList()
-	article.getArticle(function(err, data) {
+	article.getArticle(function(err, rows) {
 		if (err) {
 			//console.log(err)
 			req.flash('error', '出错了');
-			//allData.error = err
 			//return res.end(JSON.stringify(err));
 		};
-		if (data) {
+		if (rows) {
+			for (var i = 0; i < rows.length; i++) {
+				rows[i].addDate = moment(rows[i].addDate).format('YYYY/MM/DD');
+			};
 			//allData.result = data
 			//return res.end(JSON.stringify(data));
 			res.render('index', {
@@ -45,7 +47,7 @@ exports.getLatestPostEjs = function(req, res) {
 				error: req.flash('error').toString(),
 				user: req.session.user,
 				nav: 'index',
-				myPost: data
+				myPost: rows
 			});
 			res.end()
 		};
