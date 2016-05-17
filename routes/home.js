@@ -49,7 +49,7 @@ exports.getLatestPostEjs = function(req, res) {
 				nav: 'index',
 				myPost: rows
 			});
-			res.end()
+			res.status(200).end()
 		};
 	})
 

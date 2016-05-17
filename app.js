@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var bodyParser = require('body-parser');
-var db = require('./config/db');
-var sessionStore = new MySQLStore(db);
+var conn = require('./config/db');
+var sessionStore = new MySQLStore(conn);
 var flash = require('connect-flash');
 //路由
 var routes = require('./routes/routes.js');
@@ -33,6 +33,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
 // 按照上面的解释，设置 session 的可选参数
 app.use(session({
   key: 'mynodejs',
