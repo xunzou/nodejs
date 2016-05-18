@@ -6,6 +6,7 @@ var moment = require('moment');
 exports.getSingle = function(req, res) {
 	var path = req.params.path;
 	var single = new Single({
+		click:true,
 		path: path
 	})
 	single.getPost(function(err, rows) {

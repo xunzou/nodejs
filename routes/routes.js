@@ -36,7 +36,10 @@ module.exports = function(app) {
 	});
 
 	/* GET home page. */
+	//get latest Post
 	app.get('/', home.getLatestPostEjs);
+	//get Random Post
+	app.get('/', home.getRandomPostEjs);
 
 	//get home article
 	app.post('/getAllArticle.json', home.getLatestPost);

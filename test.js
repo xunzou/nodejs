@@ -110,7 +110,7 @@ var express = require('express');
 var app = express();
 
 var bodyParser = require('body-parser');
-var multer = require('multer');
+/*var multer = require('multer');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:false}));
@@ -145,7 +145,7 @@ app.post('/file_upload',function(req,res){
   })
 
 
-})
+})*/
 
 
 var server = app.listen(8081,function(){
@@ -160,7 +160,17 @@ var server = app.listen(8081,function(){
 
 
 
+app.get('/user/:id', function (req, res, next) {
+  console.log('although this matches');
+  var a = 1
+  next(a);
+});
 
+app.get('/user/:id', function (req, res) {
+  console.log('and this matches too');
+  console.log(a)
+  res.end();
+});
 
 
 

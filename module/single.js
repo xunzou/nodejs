@@ -4,6 +4,7 @@ var pool = mysql.createPool(conn);*/
 var query = require('../config/pool');
 
 function Single(options) {
+	this.click = options && options.click;
 	this.path = options && options.path;
 };
 
@@ -11,6 +12,7 @@ module.exports = Single
 
 Single.prototype = {
 	getPost: function(callback) {
+		var self = this;
 		var selectSQL = 'select a.*,b.name from article a,user b WHERE path="' + this.path + '" and b.id = a.userId';
 		query(selectSQL, function(err, rows, fields) {
 			if (err) {
@@ -35,6 +37,14 @@ Single.prototype = {
 				rows[0].cateName = '未分类'
 				callback(null, rows)
 			}
+				//console.log(1)
+				//console.log(self.click)
+			if (self.click) {
+				//console.log(1)
+				query('update article set click=click + 1 where path="' + self.path + '"', function(err, clickRows, fields) {
+					//console.log(clickRows)
+				});
+			};
 			//console.log('--------------------------SELECT----------------------------');
 			//console.log(rows)
 

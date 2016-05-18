@@ -3,7 +3,7 @@
     	<div class="post" id="article">
     		<div class="post_data">
                 <% var postId = post.id,path = post.path; %>
-    			作者：<%= post.name %> 发表时间：<%= post.addDate %> 分类：<%= post.cateName %> <%- post.name == user ? '<a href="/editPost/'+path+'" pid="'+ postId +'" title="编辑">编辑</a>' : '' %>
+    			作者：<%= post.name %> 发表时间：<%= post.addDate %> 点击数：<%= post.click %> 分类：<%= post.cateName %> <%- post.name == user ? '<a href="/editPost/'+path+'" pid="'+ postId +'" title="编辑">编辑</a>' : '' %>
     		</div>	
     		<div class="summary">
     			<%= post.summary %>

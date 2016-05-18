@@ -9,11 +9,9 @@ var connection = sql.createConnection({
 	database: 'test_servicedb'
 });*/
 
-
-
-
 function ArticleList(options) {
 	this.userId = options && options.userId;
+	this.selectSQL = options && options.selectSQL;
 };
 
 module.exports = ArticleList
@@ -22,8 +20,11 @@ ArticleList.prototype = {
 	getArticle: function(callback) {
 		var self = this;
 		var selectSQL = 'select id,path,title,addDate from article order by id DESC limit 10';
-		if (self.userId) {
-			selectSQL = 'select id,path,title,addDate from article WHERE userId="' + self.userId + '" order by id DESC limit 10';
+		if (this.userId) {
+			selectSQL = 'select id,path,title,addDate from article WHERE userId="' + this.userId + '" order by id DESC limit 10';
+		};
+		if (this.selectSQL) {
+			selectSQL = this.selectSQL
 		};
 		console.log(selectSQL)
 		query(selectSQL, function(err, data, fields) {
@@ -33,7 +34,7 @@ ArticleList.prototype = {
 				//connection.release();
 				return callback(err)
 			};
-			console.log(data)
+			//console.log(data)
 			callback(null, data)
 		});
 		/*pool.getConnection(function(err, connection) {

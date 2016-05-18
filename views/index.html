@@ -20,6 +20,18 @@
     			暂无数据
     		<% } %>
     	</div>
+    	<h2>随机文章</h2>
+    	<div class="news" id="myRandom">
+    		<% if(myRandom && myRandom.length){ %>
+    			<ul>
+    			<% for(var i = 0;i<myRandom.length;i++){ %>
+    				<li><a href="/p/<%= myRandom[i].path %>"><%= myRandom[i].title %></a>[<%= myRandom[i].addDate %>]</li>
+    			<% } %>
+    			</ul>
+    		<% } else { %>
+    			暂无数据
+    		<% } %>
+    	</div>
 
 	    <!-- <ul class="pagination">
 		  	<li><a href="#">&laquo;</a></li>
