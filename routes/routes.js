@@ -5,7 +5,7 @@ var user = require('./user.js')
 var home = require('./home.js')
 var post = require('./post.js')
 var single = require('./single.js')
-var ArticleList = require('../module/articleList.js');
+var cate = require('./cate.js')
 
 
 module.exports = function(app) {
@@ -112,6 +112,14 @@ module.exports = function(app) {
 	//保存编辑的文章`
 	app.post('/editPost', checkLogin)
 	app.post('/editPost', single.editSingle);
+
+	//文章分类 
+	app.get('/cate', checkLogin)
+	app.get('/cate', cate.getCateList)
+	//保存文章分类
+	app.post('/saveCate', checkLogin)
+	app.post('/saveCate', cate.saveCate)
+
 
 	/*app.get('/help', function(req, res) {
 		res.send('Birds home page');

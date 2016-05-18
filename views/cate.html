@@ -1,0 +1,37 @@
+<%- include('common/header.html') -%>
+    	<h1><%= title %></h1>
+
+        <% if(cate && cate.length){ %>
+            <ul class="cate_list">
+            <% for(var i = 0;i<cate.length;i++){ %>
+                <li>
+                    <span><%= cate[i].cateName %></span>
+                    <p><%= cate[i].cateDesc %></p>
+                    <a href="#" vid="<%= cate[i].cateId %>" class="cate_change">修改</a>
+                </li>
+            <% } %>
+            </ul>
+        <% } else { %>
+            暂无分类，请添加
+        <% } %>
+        
+            
+
+
+    	<form action="/saveCate" method="post">
+    		<div class="reg_item">
+    			<label for="">分类</label>
+    			<input type="text" name="cateName" id="cateName" class="ipt" />
+    		</div>
+    		<div class="reg_item">
+    			<label for="">分类说明</label>
+    			<input type="text" name="cateDesc" id="cateDesc" class="ipt" />
+    		</div>
+    		<div class="reg_item">
+    			<label for=""> </label>
+    			<input type="submit" class="btn" />
+    		</div>
+    	</form>
+
+        
+<%- include('common/footer.html') -%>

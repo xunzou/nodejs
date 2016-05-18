@@ -26,6 +26,7 @@
 				        <% if (user) { %>
 				        <li <%= nav=='home' ? ' class=active' : '' %>><a href="/home">用户中心</a></li>
 				        <li <%= nav=='post' ? ' class=active' : '' %>><a href="/post">发文章</a></li>
+				        <li <%= nav=='cate' ? ' class=active' : '' %>><a href="/cate">文章分类</a></li>
 				        <li><a href="/logout">退出</a></li>
 				        <% } else { %>
 				        <li <%= nav=='reg' ? ' class=active' : '' %>><a href="/reg">注册</a></li>
