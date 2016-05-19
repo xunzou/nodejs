@@ -2,12 +2,13 @@
     	<h1><%= title %></h1>
 
         <% if(cate && cate.length){ %>
-            <ul class="cate_list">
+            <ul class="cate_list" id="cateList">
             <% for(var i = 0;i<cate.length;i++){ %>
-                <li>
+                <li class="cate_item">
                     <span><%= cate[i].cateName %></span>
                     <p><%= cate[i].cateDesc %></p>
                     <a href="#" vid="<%= cate[i].cateId %>" class="cate_change">修改</a>
+                    <a href="#" vid="<%= cate[i].cateId %>" class="cate_del">删除</a>
                 </li>
             <% } %>
             </ul>
@@ -18,7 +19,7 @@
             
 
 
-    	<form action="/cate" method="post">
+    	<form action="/cate" method="post" id="cateForm">
     		<div class="reg_item">
     			<label for="">分类</label>
     			<input type="text" name="cateName" id="cateName" class="ipt" />
@@ -33,5 +34,5 @@
     		</div>
     	</form>
 
-        
+<script src="js/cate.js"></script>
 <%- include('common/footer.html') -%>

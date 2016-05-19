@@ -32,12 +32,12 @@ Post.prototype = {
 			var updateSQL = 'update article set path="' + idMD5.substring(5, 17) + '" where id="' + insertId + '"'
 			query(updateSQL, function(err, data, fields) {
 				console.log('更新成功')
-				console.log(data), "' + self.userId + '"
+				//console.log(data, "' + self.userId + '")
 				callback(null, data)
 			});
-			console.log('--------------------------INSERT----------------------------');
+			//console.log('--------------------------INSERT----------------------------');
 			//console.log(rows)
-			console.log('--------------------------INSERT----------------------------');
+			//console.log('--------------------------INSERT----------------------------');
 		});
 
 
