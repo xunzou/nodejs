@@ -16,8 +16,12 @@ module.exports = Cate
 Cate.prototype = {
 	saveCate: function(callback) {
 		var self = this;
-		var insertSQL = 'insert into category(cateName,cateDesc,userId) values(' + self.cateName + ',' + self.cateDesc + ',' + self.userId + ')';
-		query(insertSQL, function(err, data, fields) {
+		var saveSQL = 'insert into category(cateName,cateDesc,userId) values(' + this.cateName + ',' + this.cateDesc + ',' + this.userId + ')';
+		//如果有cateId 则是编辑
+		if (this.cateId) {
+			saveSQL = 'update category set cateName=' + this.cateName + ',cateDesc=' + this.cateDesc + ' where cateId="' + this.cateId + '" and userId=" ' + this.userId + ' "';
+		};
+		query(saveSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err)
 				//connection.release();
@@ -29,8 +33,8 @@ Cate.prototype = {
 
 	getCateList: function(callback) {
 		var self = this;
-		var insertSQL = 'select * from category WHERE userId="' + self.userId + '"';
-		query(insertSQL, function(err, data, fields) {
+		var getSQL = 'select * from category WHERE userId="' + self.userId + '"';
+		query(getSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err)
 				//connection.release();

@@ -51,7 +51,7 @@ User.prototype = {
 
 	},
 	getUser: function(name, callback) {
-		var selectSQL = 'select * from user where name=' + name + '';
+		var selectSQL = 'select * from user where name="' + name + '"';
 		query(selectSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err)

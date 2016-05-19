@@ -38,10 +38,16 @@ exports.saveCate = function(req, res) {
 			cateDesc: cateDesc,
 			userId: userId
 		};
-	console.log(req.query)
+	if (cateName == '' ||cateDesc== '') {
+		return
+	};
+	if (req.query.cateId) {
+		o.cateId = req.query.cateId
+	};
+	/*console.log(req.query)
 	console.log(req.body)
 	console.log(req.param)
-	console.log(o)
+	console.log(o)*/
 	var cate = new Cate(o)
 	cate.saveCate(function(err, rows) {
 		if (err) {
