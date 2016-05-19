@@ -58,3 +58,39 @@ exports.savePost = function(req, res) {
 		};
 	})
 };
+
+
+exports.delPost = function(req, res) {
+	var userId = req.session.userId,
+		o = {
+			userId: userId
+		};
+	//return
+	var userId = req.session.userId,
+		pathObj,
+		path;
+	for(var k in req.body){
+		pathObj = JSON.parse(k)
+	}
+	path = pathObj.path
+
+	var post = new Post(o)
+	post.delPost(path,function(err, rows) {
+		var allData = {
+			error: null,
+			result: null
+		}
+		if (err) {
+			console.log(err)
+			allData.error = err
+			//return res.end(JSON.stringify(err));
+		};
+		if (rows) {
+			console.log(rows)
+			allData.result = rows
+			//return res.end(JSON.stringify(rows));
+		};
+		//return res.json(allData);
+		return res.end(JSON.stringify(allData));
+	})
+};

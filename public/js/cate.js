@@ -36,8 +36,8 @@ $(function() {
                     },
                     //type: 'post',
                     success: function(data) {
-                        console.log(typeof data)
-                        console.log(data)
+                        //console.log(typeof data)
+                        //console.log(data)
                         var result = data.result;
                         if (data.error) {
                             console.log(data.error)

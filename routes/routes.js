@@ -102,6 +102,8 @@ module.exports = function(app) {
 	//提交文章
 	app.post('/post', checkLogin)
 	app.post('/post', post.savePost);
+	//删除文章
+	app.post('/post/del.json',post.delPost)
 	
 	//文章显示页
 	app.get('/p/:path', single.getSingle);

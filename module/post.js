@@ -81,6 +81,15 @@ Post.prototype = {
 				//console.log(rows)
 			console.log('--------------------------select----------------------------');
 		});
+	},
+	delPost: function(path,callback){
+		var delSQL = 'delete from article WHERE userId="' + this.userId + '" and path="'+ path +'"';
+		query(delSQL, function(err, data, fields) {
+			if (err) {
+				return callback(err)
+			};			
+			callback(null,data)
+		});
 	}
 }
 
