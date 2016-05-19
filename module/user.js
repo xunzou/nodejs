@@ -1,5 +1,4 @@
 /*var conn = require('../conn')
-var mysql = require('mysql')
 var pool = mysql.createPool(conn);*/
 /*pool.getConnection(function(err, connection) {
 	// Use the connection
@@ -19,14 +18,15 @@ var pool = mysql.createPool(conn);*/
 		// Don't use the connection here, it has been returned to the pool.
 	});
 });*/
+var mysql = require('mysql')
 var query = require('../config/pool')
 var md5 = require("./util/md5");
 
 
 function User(user) {
-	this.name = user.name;
+	this.name = mysql.escape(user.name);
 	this.password = user.password;
-	this.email = user.email;
+	this.email = mysql.escape(user.email);
 };
 
 module.exports = User
@@ -34,7 +34,7 @@ module.exports = User
 User.prototype = {
 	saveUser: function(callback) {
 		var self = this;
-		var insertSQL = 'insert into user(name,password,regDate,lastDateLog) values("' + self.name + '","' + md5(self.password) + '",'+ Date.parse(new Date()) +','+ Date.parse(new Date()) +')';
+		var insertSQL = 'insert into user(name,password,regDate,lastDateLog) values(' + self.name + ',"' + md5(self.password) + '",'+ Date.parse(new Date()) +','+ Date.parse(new Date()) +')';
 		console.log(insertSQL)
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
@@ -51,7 +51,7 @@ User.prototype = {
 
 	},
 	getUser: function(name, callback) {
-		var selectSQL = 'select * from user where name="' + name + '"';
+		var selectSQL = 'select * from user where name=' + name + '';
 		query(selectSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err)

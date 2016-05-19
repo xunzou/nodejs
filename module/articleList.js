@@ -1,14 +1,4 @@
 var query = require('../config/pool')
-
-/*var sql      = require('mysql');
-var sqldb = require('../config/db');
-var connection = sql.createConnection({
-	host: '10.110.30.84',
-	user: 'roc',
-	password: '123456',
-	database: 'test_servicedb'
-});*/
-
 function ArticleList(options) {
 	this.userId = options && options.userId;
 	this.selectSQL = options && options.selectSQL;

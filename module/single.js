@@ -1,6 +1,7 @@
 /*var conn = require('../conn')
 var mysql = require('mysql')
 var pool = mysql.createPool(conn);*/
+var mysql = require('mysql')
 var query = require('../config/pool');
 
 function Single(options) {
@@ -72,7 +73,7 @@ Single.prototype = {
 		});*/
 	},
 	editPost: function(postObj, callback) {
-		var updateSQL = 'update article set title="' + postObj.title + '",cate=' + postObj.cate + ',summary="' + postObj.summary + '",article = "' + postObj.article + '",updateDate=' + Date.parse(new Date()) + ' where userId = ' + postObj.userId + ' and path = "' + postObj.path + '"';
+		var updateSQL = 'update article set title=' +  mysql.escape(postObj.title) + ',cate=' + postObj.cate + ',summary=' +  mysql.escape(postObj.summary) + ',article = ' + mysql.escape(postObj.article) + ',updateDate=' + Date.parse(new Date()) + ' where userId = ' + postObj.userId + ' and path = "' + postObj.path + '"';
 		console.log(updateSQL)
 		query(updateSQL, function(err, rows, fields) {
 			if (err) {

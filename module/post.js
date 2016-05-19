@@ -1,15 +1,15 @@
 /*var conn = require('../conn')
-var mysql = require('mysql')
 var pool = mysql.createPool(conn);*/
+var mysql = require('mysql')
 var query = require('../config/pool')
 var md5 = require("./util/md5");
 
 
 
 function Post(options) {
-	this.title = options.title;
-	this.summary = options.summary;
-	this.article = options.article;
+	this.title = mysql.escape(options.title);
+	this.summary = mysql.escape(options.summary);
+	this.article = mysql.escape(options.article);
 	this.cate = options.cate;
 	this.userId = options.userId;
 };
@@ -19,27 +19,26 @@ module.exports = Post
 Post.prototype = {
 	saveArticle: function(callback) {
 		var self = this;
-		var insertSQL = 'insert into article(title,summary,article,addDate,userId,cate) values("' + self.title + '","' + self.summary + '","' + self.article + '","' + Date.parse(new Date()) + '","' + self.userId + '","' + self.cate + '");';
+		var insertSQL = 'insert into article(title,summary,article,addDate,userId,cate) values(' + self.title + ',' + self.summary + ',' + self.article + ',' + Date.parse(new Date()) + ',' + self.userId + ',' + self.cate + ');';
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
-				console.log(err,44)
-				//connection.release();
+				console.log(err)
+					//connection.release();
 				return callback(err)
 			};
 			var insertId = data.insertId,
 				idMD5 = md5(insertId)
 
-			var updateSQL = 'update article set path="'+ idMD5.substring(5,17) +'" where id="'+ insertId +'"'
+			var updateSQL = 'update article set path="' + idMD5.substring(5, 17) + '" where id="' + insertId + '"'
 			query(updateSQL, function(err, data, fields) {
 				console.log('更新成功')
-				console.log(data),"' + self.userId + '"
-				callback(null,data)
+				console.log(data), "' + self.userId + '"
+				callback(null, data)
 			});
 			console.log('--------------------------INSERT----------------------------');
 			//console.log(rows)
 			console.log('--------------------------INSERT----------------------------');
 		});
-
 
 
 
@@ -74,13 +73,16 @@ Post.prototype = {
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err)
-				//connection.release();
+					//connection.release();
 				return callback(err)
-			};			
+			};
 			console.log('--------------------------select----------------------------');
-			callback(null,data)
-			//console.log(rows)
+			callback(null, data)
+				//console.log(rows)
 			console.log('--------------------------select----------------------------');
 		});
 	}
 }
+
+
+

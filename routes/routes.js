@@ -117,8 +117,8 @@ module.exports = function(app) {
 	app.get('/cate', checkLogin)
 	app.get('/cate', cate.getCateList)
 	//保存文章分类
-	app.post('/saveCate', checkLogin)
-	app.post('/saveCate', cate.saveCate)
+	app.post('/cate', checkLogin)
+	app.post('/cate', cate.saveCate)
 
 
 	/*app.get('/help', function(req, res) {
