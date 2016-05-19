@@ -119,6 +119,8 @@ module.exports = function(app) {
 	//保存文章分类
 	app.post('/cate', checkLogin)
 	app.post('/cate', cate.saveCate)
+	//删除分类
+	app.post('/cate/del.json',cate.delCate)
 
 
 	/*app.get('/help', function(req, res) {

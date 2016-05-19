@@ -7,7 +7,7 @@ $(function() {
         init: function() {
             var self = this;
             //this.getData()
-
+            //修改
             $('#cateList .cate_change').click(function(e){
                 e.preventDefault()
                 var parentLi = $(this).closest('li.cate_item'),
@@ -17,31 +17,40 @@ $(function() {
                 $('#cateName').val(cateName)
                 $('#cateDesc').val(cateDesc)
                 $('#cateForm').attr('action','/cate?cateId='+ cateId)
-            })
+            });
+            //删除
+            $('#cateList .cate_del').click(function(e){
+                e.preventDefault()
+                var parentLi = $(this).closest('li.cate_item'),
+                    cateId = $(this).attr('vid');
+                self.delCate(parentLi,cateId)
+            });
+
         },
-        getPost: function() {
+        delCate: function(li,id) {
             var self = this,
                 obj = {
-                    url: '/getArticle.json',
-                    params: {},
+                    url: '/cate/del.json',
+                    params: {
+                        cateId:id
+                    },
                     //type: 'post',
                     success: function(data) {
                         console.log(typeof data)
                         console.log(data)
                         var result = data.result;
                         if (data.error) {
+                            console.log(data.error)
                             $('#myPost').text('出错了！')
                             return
                         };
-                        if (result && result.length) {
-                            var html = '';
-                            for (var i = 0; i < result.length; i++) {
-                                html += '<li><a href="/p/'+ result[i].path +'">' + result[i].title + '</a>['+ XZ.formatDate(result[i].addDate,'YYYY/MM/DD') +']</li>'
+                        if (result) {
+                            if (result.affectedRows != 0) {
+                                li.remove()
+                            } else {
+                                console.log('删除木有成功')
                             };
-                            $('#myPost').html('<ul>'+ html +'</ul>')
-                        } else {
-                            $('#myPost').text('暂无数据')
-                        };
+                        }
                     }
                 }
             XZ.ajax(obj)

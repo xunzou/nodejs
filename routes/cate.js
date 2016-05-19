@@ -63,3 +63,42 @@ exports.saveCate = function(req, res) {
 		};
 	})
 };
+
+
+
+
+exports.delCate = function(req, res) {
+	var userId = req.session.userId,
+		cateIdObj,
+		cateId;
+	for(var k in req.body){
+		cateIdObj = JSON.parse(k)
+	}
+	//console.log(typeof cateIdObj)
+	//console.log(cateIdObj)
+	cateId = cateIdObj.cateId
+
+	var cate = new Cate({
+			userId: userId,
+			cateId: cateId
+		})
+	cate.delCate(function(err, rows) {
+		var allData = {
+			error: null,
+			result: null
+		}
+		if (err) {
+			console.log(err)
+			allData.error = err
+			//return res.end(JSON.stringify(err));
+		};
+		if (rows) {
+			console.log(rows)
+			allData.result = rows
+			//return res.end(JSON.stringify(rows));
+		};
+		//return res.json(allData);
+		return res.end(JSON.stringify(allData));
+	})
+
+};

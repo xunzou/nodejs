@@ -15,7 +15,6 @@ module.exports = Cate
 
 Cate.prototype = {
 	saveCate: function(callback) {
-		var self = this;
 		var saveSQL = 'insert into category(cateName,cateDesc,userId) values(' + this.cateName + ',' + this.cateDesc + ',' + this.userId + ')';
 		//如果有cateId 则是编辑
 		if (this.cateId) {
@@ -23,7 +22,7 @@ Cate.prototype = {
 		};
 		query(saveSQL, function(err, data, fields) {
 			if (err) {
-				console.log(err)
+				//console.log(err)
 				//connection.release();
 				return callback(err)
 			};
@@ -32,18 +31,22 @@ Cate.prototype = {
 	},
 
 	getCateList: function(callback) {
-		var self = this;
-		var getSQL = 'select * from category WHERE userId="' + self.userId + '"';
+		var getSQL = 'select * from category WHERE userId="' + this.userId + '"';
 		query(getSQL, function(err, data, fields) {
 			if (err) {
-				console.log(err)
-				//connection.release();
+				//console.log(err)
 				return callback(err)
 			};			
-			//console.log('--------------------------select----------------------------');
 			callback(null,data)
-			//console.log(rows)
-			//console.log('--------------------------select----------------------------');
+		});
+	},
+	delCate: function(callback){
+		var delSQL = 'delete from category WHERE userId="' + this.userId + '" and cateId="'+ this.cateId +'"';
+		query(delSQL, function(err, data, fields) {
+			if (err) {
+				return callback(err)
+			};			
+			callback(null,data)
 		});
 	}
 }
