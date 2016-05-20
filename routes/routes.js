@@ -4,7 +4,7 @@ var Reg = require('../module/reg.js');*/
 var user = require('./user.js')
 var home = require('./home.js')
 var post = require('./post.js')
-var single = require('./single.js')
+//var single = require('./single.js')
 var cate = require('./cate.js')
 
 
@@ -106,14 +106,14 @@ module.exports = function(app) {
 	app.post('/post/del.json',post.delPost)
 	
 	//文章显示页
-	app.get('/p/:path', single.getSingle);
+	app.get('/p/:path', post.getSingle);
 
 	//获取编辑的文章
 	app.get('/editPost/:path', checkLogin)
-	app.get('/editPost/:path', single.getEditSingle);
+	app.get('/editPost/:path', post.getEditSingle);
 	//保存编辑的文章`
 	app.post('/editPost', checkLogin)
-	app.post('/editPost', single.editSingle);
+	app.post('/editPost', post.editSingle);
 
 	//文章分类 
 	app.get('/cate', checkLogin)

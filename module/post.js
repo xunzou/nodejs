@@ -10,6 +10,7 @@ function Post(options) {
 	this.title = mysql.escape(options.title);
 	this.summary = mysql.escape(options.summary);
 	this.article = mysql.escape(options.article);
+	this.click = options.click;
 	this.cate = options.cate;
 	this.userId = options.userId;
 };
@@ -66,8 +67,54 @@ Post.prototype = {
 			});
 		});*/
 	},
+	editPost: function(postObj, callback) {
+		var updateSQL = 'update article set title=' +  mysql.escape(postObj.title) + ',cate=' + postObj.cate + ',summary=' +  mysql.escape(postObj.summary) + ',article = ' + mysql.escape(postObj.article) + ',updateDate=' + Date.parse(new Date()) + ' where userId = ' + postObj.userId + ' and path = "' + postObj.path + '"';
+		console.log(updateSQL)
+		query(updateSQL, function(err, rows, fields) {
+			if (err) {
+				//console.log(err)
+				//connection.release();
+				return callback(err)
+			};
+			callback(null, rows)
+		});
+	},
+	getPost: function(callback) {
+		var self = this;
+		var selectSQL = 'select a.*,b.name from article a,user b WHERE path="' + this.path + '" and b.id = a.userId';
+		query(selectSQL, function(err, rows, fields) {
+			if (err) {
+				//console.log(err)
+				//connection.release();
+				return callback(err)
+			};
+			//增加点击量
+			if (self.click) {
+				query('update article set click=click + 1 where path="' + self.path + '"', function(err, clickRows, fields) {
+					//console.log(clickRows)
+				});
+			};
+			//console.log(rows[0].cate)
+			if (rows[0].cate != 0 && rows[0].cate !== null) {
+				var selectCateSQL = 'select cateName from category where cateId=' + rows[0].cate;
+				query(selectCateSQL, function(error, data, field) {
+					if (error) {
+						//console.log(error)
+					};
+					if (data) {
+						//console.log(data)
+						rows[0].cateName = data[0].cateName
+					};
+					callback(null, rows)
+				});
+			} else {
+				rows[0].cateName = '未分类'
+				callback(null, rows)
+			}
+		});
+	},
 
-	getCate: function(callback) {
+	getCateList: function(callback) {
 		var self = this;
 		var insertSQL = 'select cateId,cateName from category WHERE userId="' + self.userId + '"';
 		query(insertSQL, function(err, data, fields) {

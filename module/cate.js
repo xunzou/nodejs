@@ -2,7 +2,6 @@
 var pool = mysql.createPool(conn);*/
 var mysql = require('mysql')
 var query = require('../config/pool')
-var md5 = require("./util/md5");
 
 function Cate(options) {
 	this.cateName = mysql.escape(options.cateName);
