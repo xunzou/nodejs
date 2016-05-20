@@ -4,7 +4,9 @@ header.header{width:100%;background:#e6e6e6;}
 
 .news{margin:10px;}
 .news li{line-height:1.5}
+.news li .edit_post,
 .news li .del_post{display:none;}
+.news li:hover .edit_post,
 .news li:hover .del_post{display:inline-block;}
 
 
