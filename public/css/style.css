@@ -2,12 +2,17 @@ header.header{width:100%;background:#e6e6e6;}
 
 .content{padding:15px;}
 
-
 .news{margin:10px;}
 .news li{line-height:1.5}
 .news li .del_post{display:none;}
 .news li:hover .del_post{display:inline-block;}
 
 
+/*post*/
+.reg_item{margin:0 0 15px;}
+.reg_item label{vertical-align:top;padding:3px 0;}
+.ipt_textarea{width:440px;}
+.article_context,
+.article_preview{display:inline-block;padding:5px 10px 5px 0;width:460px;vertical-align:top;}
 
 footer.footer{width:100%;height:60px;background:#e5e5e5;text-align:center;line-height:60px;}

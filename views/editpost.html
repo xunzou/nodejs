@@ -2,7 +2,7 @@
     	<h1><%= title %></h1>
     	<p>Welcome to <%= user %></p>
         <% if(post){ %>
-            <% var title = post.title, path = post.path, myCateId = post.cate,summary = post.summary,article = post.article; %>
+            <% var title = post.title, path = post.path, myCateId = post.cate,summary = post.summary,article = post.article,articleHtml = post.articleHtml; %>
         <% } %>
 
     	<form action="/editPost" method="post">
@@ -19,11 +19,7 @@
                     <option value="0">未分类</option>
                     <% if (cate) { %>
                         <% for(var i = 0;i< cate.length;i++){ %>
-                            <% if (myCateId && myCateId != 0) { %>
-                                <option value="<%= cate[i].cateId %>" <%= myCateId ? 'selected' : '' %>><%= cate[i].cateName %></option>
-                            <% } else {%>
-                                <option value="<%= cate[i].cateId %>"><%= cate[i].cateName %></option>
-                            <% } %>
+                            <option value="<%= cate[i].cateId %>" <%= myCateId ? 'selected' : '' %>><%= cate[i].cateName %></option>
                         <% } %>
                     <% } %>
                     
@@ -31,11 +27,14 @@
             </div>            
             <div class="reg_item">
                 <label for="">摘要</label>
-                <textarea name="article_summary" id="articleSummary" cols="40" rows="2"><%= summary ? summary : '' %></textarea>
+                <textarea name="article_summary" class="ipt_textarea" id="articleSummary" cols="40" rows="2"><%= summary ? summary : '' %></textarea>
             </div>
             <div class="reg_item">
-                <label for="">内容</label>
-                <textarea name="article_con" id="articleCon" cols="40" rows="5"><%= article ? article : '' %></textarea>
+                <label for="">内容</label>                
+                <div class="article_context">
+                    <textarea name="article_con" class="ipt_textarea" id="articleCon" oninput="this.editor.update()" cols="40" rows="5"><%= article ? article : '' %></textarea>
+                </div>
+                <div class="article_preview" id="preview"><%- articleHtml ? articleHtml : '' %></div>
             </div>
     		<div class="reg_item">
     			<label for=""> </label>
@@ -43,6 +42,16 @@
     		</div>
     	</form>
 
+        <script>
+            function Editor(input, preview) {
+                this.update = function() {
+                    preview.innerHTML = markdown.toHTML(input.value);
+                };
+                input.editor = this;
+                this.update();
+            }
+            new Editor(document.getElementById('articleCon'), document.getElementById('preview'));
+        </script>
         <% if (success) { %>
             <div class="alert alert-success"><%= success %></div>
         <% } %>

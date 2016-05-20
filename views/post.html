@@ -18,13 +18,17 @@
                         <% } %>
                     <% } %>
                 </select>
-            </div>            <div class="reg_item">
+            </div>
+            <div class="reg_item">
                 <label for="">摘要</label>
-                <textarea name="article_summary" id="articleSummary" cols="40" rows="2"></textarea>
+                <textarea name="article_summary" class="ipt_textarea" id="articleSummary" cols="40" rows="2"></textarea>
             </div>
             <div class="reg_item">
                 <label for="">内容</label>
-                <textarea name="article_con" id="articleCon" cols="40" rows="5"></textarea>
+                <div class="article_context">
+                    <textarea name="article_con" class="ipt_textarea" id="articleCon" oninput="this.editor.update()" cols="40" rows="5"></textarea>
+                </div>
+                <div class="article_preview" id="preview"> </div>
             </div>
     		<div class="reg_item">
     			<label for=""> </label>
@@ -32,10 +36,22 @@
     		</div>
     	</form>
 
+        <script>
+            function Editor(input, preview) {
+                this.update = function() {
+                    preview.innerHTML = markdown.toHTML(input.value);
+                };
+                input.editor = this;
+                this.update();
+            }
+            new Editor(document.getElementById('articleCon'), document.getElementById('preview'));
+        </script>
+
         <% if (success) { %>
             <div class="alert alert-success"><%= success %></div>
         <% } %>
         <% if (error) { %>
             <div class="alert alert-danger"><%= error %></div>
         <% } %>
+        
 <%- include('common/footer.html') -%>

@@ -12,6 +12,7 @@ function Post(options) {
 	this.article = mysql.escape(options.article);
 	this.click = options.click;
 	this.cate = options.cate;
+	this.path = options.path;
 	this.userId = options.userId;
 };
 
@@ -67,10 +68,11 @@ Post.prototype = {
 			});
 		});*/
 	},
-	editPost: function(postObj, callback) {
-		var updateSQL = 'update article set title=' +  mysql.escape(postObj.title) + ',cate=' + postObj.cate + ',summary=' +  mysql.escape(postObj.summary) + ',article = ' + mysql.escape(postObj.article) + ',updateDate=' + Date.parse(new Date()) + ' where userId = ' + postObj.userId + ' and path = "' + postObj.path + '"';
+	editPost: function(callback) {
+		var updateSQL = 'update article set title=' +  this.title + ',cate=' + this.cate + ',summary=' +  this.summary + ',article = ' + this.article + ',updateDate=' + Date.parse(new Date()) + ' where userId = ' + this.userId + ' and path = "' + this.path + '"';
 		console.log(updateSQL)
 		query(updateSQL, function(err, rows, fields) {
+			console.log(err)
 			if (err) {
 				//console.log(err)
 				//connection.release();
@@ -82,6 +84,7 @@ Post.prototype = {
 	getPost: function(callback) {
 		var self = this;
 		var selectSQL = 'select a.*,b.name from article a,user b WHERE path="' + this.path + '" and b.id = a.userId';
+		//console.log(selectSQL)
 		query(selectSQL, function(err, rows, fields) {
 			if (err) {
 				//console.log(err)
@@ -111,22 +114,23 @@ Post.prototype = {
 				rows[0].cateName = '未分类'
 				callback(null, rows)
 			}
+
 		});
 	},
 
 	getCateList: function(callback) {
 		var self = this;
-		var insertSQL = 'select cateId,cateName from category WHERE userId="' + self.userId + '"';
+		var insertSQL = 'select cateId,cateName from category WHERE userId="' + this.userId + '"';
 		query(insertSQL, function(err, data, fields) {
 			if (err) {
 				console.log(err)
 					//connection.release();
 				return callback(err)
 			};
-			console.log('--------------------------select----------------------------');
+			//console.log('--------------------------select----------------------------');
 			callback(null, data)
 				//console.log(rows)
-			console.log('--------------------------select----------------------------');
+			//console.log('--------------------------select----------------------------');
 		});
 	},
 	delPost: function(path,callback){

@@ -1,6 +1,8 @@
 //文章
 var Post = require('../module/post.js');
 var moment = require('moment');
+var markdown = require( "markdown" ).markdown;
+
 //添加页面获取分类
 exports.getCatePost = function(req, res) {
 	var userId = req.session.userId,
@@ -99,6 +101,8 @@ exports.delPost = function(req, res) {
 //获取文章内容
 exports.getSingle = function(req, res) {
 	var path = req.params.path;
+	//console.log(req.params)
+	//console.log(req.params.path)
 	var post = new Post({
 		click:true,
 		path: path
@@ -113,6 +117,7 @@ exports.getSingle = function(req, res) {
 		};
 		if (rows) {
 			rows[0].addDate = moment(rows[0].addDate).format('YYYY/MM/DD HH:MM:SS')
+			rows[0].article = markdown.toHTML(rows[0].article)
 			res.render('article', {
 				title: rows[0].title,
 				nav: 'index',
@@ -136,34 +141,35 @@ exports.getEditSingle = function(req, res) {
 		if (err) {
 			return res.redirect('/p/' + path);
 		};
-		var cate = [],
-			post = new Post({
+		var myPost = new Post({
 				userId: userId
 			});
-		post.getCateList(function(err, data) {
-			if (err) {return};
+		myPost.getCateList(function(error, data) {
+			if (error) {return};
 			if (data) {
 				cate = data
+				if (rows) {
+					rows[0].path = path;
+					//console.log(rows)
+					//console.log(cate)
+					rows[0].articleHtml = markdown.toHTML(rows[0].article);
+					res.render('editpost', {
+						title: '编辑文章',
+						nav: 'index',
+						user: req.session.user,
+						post: rows[0],
+						cate: cate,
+						success: req.flash('success').toString(),
+						error: req.flash('error').toString(),
+						user: req.session.user
+					});
+
+					res.end()
+				};
+
 			};
 		})
-
-		if (rows) {
-			rows[0].path = path;
-			//console.log(rows)
-			console.log(cate)
-			res.render('editpost', {
-				title: '编辑文章',
-				nav: 'index',
-				user: req.session.user,
-				post: rows[0],
-				cate: cate,
-				success: req.flash('success').toString(),
-				error: req.flash('error').toString(),
-				user: req.session.user
-			});
-
-			res.end()
-		};
+		
 	})
 };
 
@@ -173,16 +179,18 @@ exports.editSingle = function(req, res) {
 	var postObj = {
 		path: path,
 		title: req.body.article_title,
-		article: req.body.article_con,
-		summary: req.body.article_summary,
 		cate: req.body.cate,
-		userId: req.session.userId,
+		summary: req.body.article_summary,
+		article: req.body.article_con,
+		userId: req.session.userId
 	}
-	var post = new Post()
-	post.editPost(postObj, function(err, rows) {
+	var post = new Post(postObj)
+	post.editPost(function(err, rows) {
+		//console.log(rows)
+		//console.log(err)
 		//console.log(rows)
 		if (err) {
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			return res.redirect('/p/' + path);
 		};
 		if (rows) {
