@@ -1,0 +1,23 @@
+<%- include('common/header.html') -%>
+    	<h1><%= title %></h1>
+    	
+		<h2>搜索结果如下：</h2>
+    	<div class="search" id="mySearch">
+    		<% if(data && data.length){ %>
+    			<ul>
+    			<% for(var i = 0;i<data.length;i++){ %>
+    				<li>
+    					<a href="/p/<%= data[i].path %>"><%= data[i].title %></a>[<%= data[i].addDate %>]
+    					<p><%= data[i].summary %></p>
+    				</li>
+    			<% } %>
+    			</ul>
+    		<% } else { %>
+    			暂无数据
+    		<% } %>
+    		
+    	</div>
+
+
+<%- include('common/footer.html') -%>
+

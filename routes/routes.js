@@ -4,7 +4,7 @@ var Reg = require('../module/reg.js');*/
 var user = require('./user.js')
 var home = require('./home.js')
 var post = require('./post.js')
-//var single = require('./single.js')
+var search = require('./search.js')
 var cate = require('./cate.js')
 
 
@@ -123,6 +123,12 @@ module.exports = function(app) {
 	app.post('/cate', cate.saveCate)
 	//删除分类
 	app.post('/cate/del.json',cate.delCate)
+
+
+
+	//搜索
+	app.post('/search', search.getArticle)
+
 
 
 	/*app.get('/help', function(req, res) {
