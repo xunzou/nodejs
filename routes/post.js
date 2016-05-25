@@ -12,7 +12,7 @@ exports.getCatePost = function(req, res) {
 	post.getCateList(function(err, rows) {
 		if (err) {
 			//console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			return res.redirect('/post'); //返回文章页
 		};
 		if (rows) {
@@ -21,8 +21,10 @@ exports.getCatePost = function(req, res) {
 				title: 'post',
 				nav: 'post',
 				cate: rows,
-				success: req.flash('success').toString(),
-				error: req.flash('error').toString(),
+				//success: req.flash('success').toString(),
+				//error: req.flash('error').toString(),
+				success: 'success',
+				error: 'error',
 				user: req.session.user
 			});
 			res.end()
@@ -49,12 +51,12 @@ exports.savePost = function(req, res) {
 	post.saveArticle(function(err, rows) {
 		if (err) {
 			//console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			return res.redirect('/post'); //返回编辑页
 		};
 		if (rows) {
 			//console.log(JSON.stringify(rows))
-			req.flash('success', '发表成功!');
+			//req.flash('success', '发表成功!');
 			res.redirect('/home'); //返回home
 			res.end()
 		};
@@ -83,12 +85,12 @@ exports.delPost = function(req, res) {
 			result: null
 		}
 		if (err) {
-			console.log(err)
+			//console.log(err)
 			allData.error = err
 			//return res.end(JSON.stringify(err));
 		};
 		if (rows) {
-			console.log(rows)
+			//console.log(rows)
 			allData.result = rows
 			//return res.end(JSON.stringify(rows));
 		};
@@ -111,7 +113,7 @@ exports.getSingle = function(req, res) {
 		//console.log(rows)
 		if (err) {
 			//console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			return res.redirect('/');
 			//return res.end(JSON.stringify(err));
 		};
@@ -159,8 +161,10 @@ exports.getEditSingle = function(req, res) {
 						user: req.session.user,
 						post: rows[0],
 						cate: cate,
-						success: req.flash('success').toString(),
-						error: req.flash('error').toString(),
+						//success: req.flash('success').toString(),
+						//error: req.flash('error').toString(),
+						success: 'success',
+						error: 'error',
 						user: req.session.user
 					});
 
@@ -228,6 +232,8 @@ exports.getPostList = function(req, res) {
 				paging: data.paging,
 				//success: req.flash('success').toString(),
 				//error: req.flash('error').toString(),
+				success: 'success',
+				error: 'error',
 				user: req.session.user
 			});
 			res.end()

@@ -50,8 +50,10 @@ module.exports = function(app) {
 		res.render('reg', {
 			title: '注册',
 			nav: 'reg',
-			success: req.flash('success').toString(),
-			error: req.flash('error').toString(),
+			//success: req.flash('success').toString(),
+			//error: req.flash('error').toString(),
+			success: 'success',
+			error: 'error',
 			user: req.session.user
 		});
 
@@ -65,8 +67,10 @@ module.exports = function(app) {
 			title: 'login',
 			nav: 'login',
 			user: req.session.user,
-			success: req.flash('success').toString(),
-			error: req.flash('error').toString()
+			//success: req.flash('success').toString(),
+			//error: req.flash('error').toString(),
+			success: 'success',
+			error: 'error'
 		});
 	});
 	app.post('/login', checkNotLogin)
@@ -78,8 +82,10 @@ module.exports = function(app) {
 		res.render('home', {
 			title: 'home',
 			nav: 'home',
-			success: req.flash('success').toString(),
-			error: req.flash('error').toString(),
+			//success: req.flash('success').toString(),
+			//error: req.flash('error').toString(),
+			success: 'success',
+			error: 'error',
 			user: req.session.user
 		});
 	});

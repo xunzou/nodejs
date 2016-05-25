@@ -17,7 +17,7 @@ exports.getArticle = function(req, res) {
 	search.getArticle(o,function(err, rows) {
 		if (err) {
 			//console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			//return res.redirect('err'); //返回首页
 		};
 		if (rows) {

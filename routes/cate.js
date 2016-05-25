@@ -48,12 +48,12 @@ exports.saveCate = function(req, res) {
 	cate.saveCate(function(err, rows) {
 		if (err) {
 			//console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			return res.redirect('/cate'); //返回编辑页
 		};
 		if (rows) {
 			//console.log(JSON.stringify(rows))
-			req.flash('success', '发表成功!');
+			//req.flash('success', '发表成功!');
 			res.redirect('/cate'); //返回home
 			res.end()
 		};

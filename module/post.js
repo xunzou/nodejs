@@ -12,7 +12,7 @@ function Post(options) {
 	this.article = mysql.escape(options.article);
 	this.click = options.click;
 	this.cate = options.cate;
-	this.path = mysql.escape(options.path);
+	this.path = options.path;
 	this.userId = options.userId;
 };
 
@@ -84,7 +84,6 @@ Post.prototype = {
 	getPost: function(callback) {
 		var self = this;
 		var selectSQL = 'select a.*,b.name from article a,user b WHERE path="' + this.path + '" and b.id = a.userId';
-		//console.log(selectSQL)
 		query(selectSQL, function(err, rows, fields) {
 			if (err) {
 				//console.log(err)
@@ -97,6 +96,7 @@ Post.prototype = {
 					//console.log(clickRows)
 				});
 			};
+			//console.log(rows[0])
 			//console.log(rows[0].cate)
 			if (rows[0].cate != 0 && rows[0].cate !== null) {
 				var selectCateSQL = 'select cateName from category where cateId=' + rows[0].cate;

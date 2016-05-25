@@ -12,7 +12,7 @@ exports.getLatestPost = function(req, res) {
 		//console.log(rows)
 		if (err) {
 			console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			allData.error = err
 			//return res.end(JSON.stringify(err));
 		};
@@ -32,7 +32,7 @@ exports.getLatestPostEjs = function(req, res, next) {
 	article.getArticle(function(err, rows) {
 		if (err) {
 			//console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			//return res.end(JSON.stringify(err));
 		};
 		if (rows) {
@@ -69,7 +69,7 @@ exports.getRandomPostEjs = function(req, res) {
 	article.getArticle(function(err, randomRows) {
 		if (err) {
 			//console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			//return res.end(JSON.stringify(err));
 		};
 		if (randomRows) {
@@ -80,8 +80,8 @@ exports.getRandomPostEjs = function(req, res) {
 			//return res.en d(JSON.stringify(data));
 			res.render('index', {
 				title: 'myNodeJS',
-				success: req.flash('success').toString(),
-				error: req.flash('error').toString(),
+				success: 'success',//req.flash('success').toString(),
+				error: 'error',//req.flash('error').toString(),
 				user: req.session.user,
 				nav: 'index',
 				myPost: req.latestRows,
@@ -108,7 +108,7 @@ exports.getHomePost = function(req, res) {
 		}
 		if (err) {
 			//console.log(err)
-			req.flash('error', '出错了');
+			//req.flash('error', '出错了');
 			allData.error = err
 			//return res.end(JSON.stringify(err));
 		};

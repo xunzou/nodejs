@@ -8,7 +8,7 @@ var MySQLStore = require('express-mysql-session')(session);
 var bodyParser = require('body-parser');
 var conn = require('./config/db');
 var sessionStore = new MySQLStore(conn);
-var flash = require('connect-flash');
+//var flash = require('connect-flash');
 //路由
 var routes = require('./routes/routes.js');
 /*var reg = require('./routes/reg');
@@ -25,7 +25,7 @@ app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(flash());
+//app.use(flash());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
