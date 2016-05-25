@@ -125,7 +125,10 @@ module.exports = function(app) {
 	app.post('/cate/del.json',cate.delCate)
 
 	//搜索
-	app.post('/search', search.getArticle)
+	app.get('/search', function(req, res) {
+		res.redirect('/search/1');
+	})
+	app.get('/search/:page', search.getArticle)
 
 	//文章列表页面
 	app.get('/list', function(req, res) {

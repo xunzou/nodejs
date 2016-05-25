@@ -5,14 +5,20 @@ var moment = require('moment');
 //添加页面获取分类
 exports.getArticle = function(req, res) {
 	var text = req.session.userId,
-		search = new Search({
-			val:req.body.k
-		});
-	search.getArticle(function(err, rows) {
+		search = new Search(),
+		o = {
+			val:req.query.k,
+			pageSize:10,
+			currentPage:req.params.page || 1
+		};
+	/*console.log(req.body)
+	console.log(req.params.page)
+	console.log(req.query)*/
+	search.getArticle(o,function(err, rows) {
 		if (err) {
 			//console.log(err)
 			req.flash('error', '出错了');
-			return res.redirect('/'); //返回首页
+			//return res.redirect('err'); //返回首页
 		};
 		if (rows) {
 			for (var i = 0; i < rows.length; i++) {
@@ -20,9 +26,11 @@ exports.getArticle = function(req, res) {
 			};
 			//console.log(rows)
 			res.render('search', {
-				title: 'search:' + req.body.k,
+				title: 'search:' + req.query.k,
+				k:req.query.k,
 				nav: 'index',
-				data: rows,
+				data: rows.result,
+				paging: rows.paging,
 				//success: req.flash('success').toString(),
 				//error: req.flash('error').toString(),
 				user: req.session.user

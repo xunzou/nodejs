@@ -12,7 +12,7 @@ function Post(options) {
 	this.article = mysql.escape(options.article);
 	this.click = options.click;
 	this.cate = options.cate;
-	this.path = options.path;
+	this.path = mysql.escape(options.path);
 	this.userId = options.userId;
 };
 
