@@ -124,10 +124,14 @@ module.exports = function(app) {
 	//删除分类
 	app.post('/cate/del.json',cate.delCate)
 
-
-
 	//搜索
 	app.post('/search', search.getArticle)
+
+	//文章列表页面
+	app.get('/list', function(req, res) {
+		res.redirect('/list/1');
+	})
+	app.get('/list/:page', post.getPostList)
 
 
 

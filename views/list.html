@@ -1,0 +1,17 @@
+<%- include('common/header.html') -%>
+    	<h1><%= title %></h1>
+		<h2>文章列表</h2>
+    	<div class="news" id="postList">
+    		<% if(postList && postList.length){ %>
+    			<ul>
+    			<% for(var i = 0;i<postList.length;i++){ %>
+    				<li><a href="/p/<%= postList[i].path %>"><%= postList[i].title %></a>[<%= postList[i].addDate %>]</li>
+    			<% } %>
+    			</ul>
+    		<% } else { %>
+    			暂无数据
+    		<% } %>
+    	</div>
+        <%- include('common/paging.html') -%>
+
+<%- include('common/footer.html') -%>

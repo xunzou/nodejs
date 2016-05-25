@@ -199,3 +199,39 @@ exports.editSingle = function(req, res) {
 	})
 
 };
+
+
+
+//获取文章列表
+exports.getPostList = function(req, res) {
+	var userId = req.session.userId,
+		post = new Post({}),
+		o = {
+			pageSize:10,
+			currentPage:req.params.page
+		};
+	/*console.log(req.body)
+	console.log(req.params.page)
+	console.log(req.query)*/
+	post.getPostList(o,function(err, data) {
+		if (err) {
+			//console.log(err)
+			//req.flash('error', '出错了');
+			return res.redirect('/list/1'); //返回文章页
+		};
+		if (data) {
+			console.log(data.paging)
+			res.render('list', {
+				title: 'list',
+				nav: 'list',
+				postList: data.result,
+				paging: data.paging,
+				//success: req.flash('success').toString(),
+				//error: req.flash('error').toString(),
+				user: req.session.user
+			});
+			res.end()
+		};
+	})
+
+};

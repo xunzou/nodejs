@@ -1,0 +1,37 @@
+
+        <ul class="pagination" id="pagination">  
+            <% var totalRecords = paging.totalRecords; %>
+            <% var totalPages = paging.totalPages; %>
+            <% var pageSize = paging.pageSize %>
+            <% var currentPage = parseInt(paging.currentPage) %>
+             <!-- 只有一页内容  -->
+            <% if(totalRecords<=pageSize){ %> 
+                <li><a href="/list/1">1</a></li> 
+            <%  } %> 
+            <!-- 上一页  -->
+            <% if(currentPage>1){ %> 
+                <li><a href="/list/<%= (currentPage-1) %>">上一页</a></li> 
+            <%  } %> 
+            <!-- 生成分页  -->
+            <%  for(var i=0;i<totalPages;i++){   %> 
+                <%  if(i>=(currentPage-3) && i<(currentPage+3)){   %> 
+                    <%  if(i==currentPage-1){   %> 
+                        <li class="active"><a href="/list/<%= (i+1)%>"><%= (i+1)%></a></li> 
+                    <%  }else{   %> 
+                        <li><a href="/list/<%= (i+1)%>"><%= (i+1)%></a></li> 
+                    <%  }   %> 
+                <%  }   %> 
+            <%  }   %> 
+            <!-- 下一页  -->
+            <%  if(currentPage<totalPages){   %> 
+                    <li><a href="/list/<%= (currentPage + 1) %>">下一页</a></li> 
+            <%  }   %> 
+
+            <!-- <li><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li class="disabled"><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li> -->
+        </ul>

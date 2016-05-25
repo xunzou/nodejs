@@ -133,6 +133,47 @@ Post.prototype = {
 			//console.log('--------------------------select----------------------------');
 		});
 	},
+	getPostList: function(o,callback) {
+		var o = o || {},
+			cp = o && o.currentPage,
+			ps = o && o.pageSize;
+		var m = (cp-1) * ps;
+
+		var selectSQL = 'select id,path,title,addDate from article order by id desc limit '+ m +','+ ps + '';
+		//console.log(selectSQL)
+		query(selectSQL, function(err, data, fields) {
+			var result = {
+				error:null,
+				paging:{},
+				result:data
+			}
+			//console.log(data)
+			if (err) {
+				//console.log(err)
+				//connection.release();
+				return callback(err)
+			};
+			//查询总条数
+			query('SELECT COUNT(id) FROM article', function(err, countData, fields) {
+				var totalRecords = countData[0]['COUNT(id)'],
+					totalPages = Math.ceil(totalRecords/ps)
+				//总数据
+				result.paging.totalRecords = totalRecords
+				//总页数
+				result.paging.totalPages = totalPages
+				//当前页
+				result.paging.currentPage = cp
+				//当前显示的数据条数
+				result.paging.pageSize = ps
+				//页数错误
+				if (cp>totalPages) {
+					return callback({message:'不存在此页'}, result)
+				};
+				callback(null, result)
+			});
+			//console.log(data)
+		});
+	},
 	delPost: function(path,callback){
 		var delSQL = 'delete from article WHERE userId="' + this.userId + '" and path="'+ path +'"';
 		query(delSQL, function(err, data, fields) {
