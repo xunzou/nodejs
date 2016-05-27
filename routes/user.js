@@ -28,7 +28,7 @@ exports.regPost = function(req, res) {
 		//console.log(err, rows, 555888)
 		if (rows.length) {
 			console.log('用户已存在!')
-			//req.flash('error', '用户已存在');
+				//req.flash('error', '用户已存在');
 			return res.redirect('/reg'); //返回注册页
 		};
 		user.saveUser(function(err, rows) {
@@ -88,3 +88,4 @@ exports.loginPost = function(req, res) {
 		};
 	})
 }
+

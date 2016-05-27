@@ -1,0 +1,57 @@
+<%- include('common/header.html') -%>
+    	<h1><%= title %></h1>
+    	<p>Welcome to <%= user %></p>
+
+
+    	<form action="/post" method="post">
+    		<div class="reg_item">
+    			<label for="">标题</label>
+    			<input type="text" name="article_title" id="articleTitle" class="ipt" />
+    		</div>
+            <div class="reg_item">
+                <label for="">类目</label>
+                <select name="cate" id="cate">
+                    <option value="0">未分类</option>
+                    <% if (cate) { %>
+                        <% for(var i = 0;i< cate.length;i++){ %>
+                        <option value="<%= cate[i].cateId %>"><%= cate[i].cateName %></option>
+                        <% } %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="reg_item">
+                <label for="">摘要</label>
+                <textarea name="article_summary" class="ipt_textarea" id="articleSummary" cols="40" rows="2"></textarea>
+            </div>
+            <div class="reg_item">
+                <label for="">内容</label>
+                <div class="article_context">
+                    <textarea name="article_con" class="ipt_textarea" id="articleCon" oninput="this.editor.update()" cols="40" rows="5"></textarea>
+                </div>
+                <div class="article_preview" id="preview"> </div>
+            </div>
+    		<div class="reg_item">
+    			<label for=""> </label>
+    			<input type="submit" class="btn" />
+    		</div>
+    	</form>
+
+        <script>
+            function Editor(input, preview) {
+                this.update = function() {
+                    preview.innerHTML = markdown.toHTML(input.value);
+                };
+                input.editor = this;
+                this.update();
+            }
+            new Editor(document.getElementById('articleCon'), document.getElementById('preview'));
+        </script>
+
+        <% if (success) { %>
+            <div class="alert alert-success"><%= success %></div>
+        <% } %>
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+        
+<%- include('common/footer.html') -%>
