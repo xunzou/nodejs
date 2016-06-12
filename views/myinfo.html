@@ -2,56 +2,37 @@
     	<h1><%= title %></h1>
     	<p>Welcome to <%= user %></p>
 
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">个人资料</a></li>
+        <li role="presentation"><a href="#">图像</a></li>
+        <li role="presentation"><a href="#">其他</a></li>
+    </ul>
+    <div class="tabs-content">
+        <div class="panel">
 
-    	<form action="/post" method="post">
-    		<div class="reg_item">
-    			<label for="">标题</label>
-    			<input type="text" name="article_title" id="articleTitle" class="ipt" />
-    		</div>
-            <div class="reg_item">
-                <label for="">类目</label>
-                <select name="cate" id="cate">
-                    <option value="0">未分类</option>
-                    <% if (cate) { %>
-                        <% for(var i = 0;i< cate.length;i++){ %>
-                        <option value="<%= cate[i].cateId %>"><%= cate[i].cateName %></option>
-                        <% } %>
-                    <% } %>
-                </select>
-            </div>
-            <div class="reg_item">
-                <label for="">摘要</label>
-                <textarea name="article_summary" class="ipt_textarea" id="articleSummary" cols="40" rows="2"></textarea>
-            </div>
-            <div class="reg_item">
-                <label for="">内容</label>
-                <div class="article_context">
-                    <textarea name="article_con" class="ipt_textarea" id="articleCon" oninput="this.editor.update()" cols="40" rows="5"></textarea>
+        </div>
+        <div class="panel">
+            <form class ="form-horizontal" enctype='multipart/form-data' method='post' action='javascript:;' role = "form" id = "frmUploadFile">
+                <div class = "form-group">
+                    <label class = "control-label col-sm-2">上传选择</label>
+                        <div class = "col-sm-4">
+                            <input type = "file" name = "files" class = "form-control" />
+                        </div>
                 </div>
-                <div class="article_preview" id="preview"> </div>
+                <div class = "form-group">
+                    <div class = "col-sm-offset-2 col-sm-4">
+                        <button class = "btn btn-primary" onClick = "uploadFile()">上传</button>
+                        <span class = "help-inline" id = "spanMessage">选择文件，并上传</span>
+                    </div>
+                </div>
+            </form>
+            <div class = "row" style = "text-align: center">
+                <img id = "imgShow" />
             </div>
-    		<div class="reg_item">
-    			<label for=""> </label>
-    			<input type="submit" class="btn" />
-    		</div>
-    	</form>
 
-        <script>
-            function Editor(input, preview) {
-                this.update = function() {
-                    preview.innerHTML = markdown.toHTML(input.value);
-                };
-                input.editor = this;
-                this.update();
-            }
-            new Editor(document.getElementById('articleCon'), document.getElementById('preview'));
-        </script>
 
-        <% if (success) { %>
-            <div class="alert alert-success"><%= success %></div>
-        <% } %>
-        <% if (error) { %>
-            <div class="alert alert-danger"><%= error %></div>
-        <% } %>
+
+        </div>
+    </div>
         
 <%- include('common/footer.html') -%>

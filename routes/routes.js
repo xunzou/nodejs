@@ -60,7 +60,7 @@ module.exports = function(app) {
 	});
 	app.post('/reg', checkNotLogin)
 	app.post('/reg', user.regPost)
-	//登录
+		//登录
 	app.get('/login', checkNotLogin)
 	app.get('/login', function(req, res) {
 		res.render('login', {
@@ -109,8 +109,8 @@ module.exports = function(app) {
 	app.post('/post', checkLogin)
 	app.post('/post', post.savePost);
 	//删除文章
-	app.post('/post/del.json',post.delPost)
-	
+	app.post('/post/del.json', post.delPost)
+
 	//文章显示页
 	app.get('/p/:path', post.getSingle);
 
@@ -124,11 +124,11 @@ module.exports = function(app) {
 	//文章分类 
 	app.get('/cate', checkLogin)
 	app.get('/cate', cate.getCateList)
-	//保存文章分类
+		//保存文章分类
 	app.post('/cate', checkLogin)
 	app.post('/cate', cate.saveCate)
-	//删除分类
-	app.post('/cate/del.json',cate.delCate)
+		//删除分类
+	app.post('/cate/del.json', cate.delCate)
 
 	//搜索
 	app.get('/search', function(req, res) {
@@ -142,6 +142,15 @@ module.exports = function(app) {
 	})
 	app.get('/list/:page', post.getPostList)
 
+	//我的个人中心
+	app.get('/myinfo', function(req, res) {
+		res.render('myinfo', {
+			title: 'myInfo',
+			user: req.session.user,
+			nav: 'myinfo',
+		});
+	});
+
 
 
 	/*app.get('/help', function(req, res) {
@@ -153,11 +162,11 @@ module.exports = function(app) {
 	});*/
 	//下面的页面是不让用户访问的页面
 	//返回首页
-	app.get('/p',function(req, res) {
+	app.get('/p', function(req, res) {
 		res.redirect('/');
 	});
-	//返回首页
-	app.get('/editPost',function(req, res) {
+	//编辑文章
+	app.get('/editPost', function(req, res) {
 		res.redirect('/');
 	});
 

@@ -43,7 +43,7 @@
 				    </form>
 				    <% if (user) { %>
 				    <ul class="nav navbar-nav navbar-right">
-				        <li><a href="/myinfo">我的信息</a></li>
+				        <li <%= nav=='myinfo' ? ' class=active' : '' %>><a href="/myinfo">我的信息</a></li>
 				    </ul>
 				    <% } %>
 				</div>
