@@ -143,6 +143,7 @@ module.exports = function(app) {
 	app.get('/list/:page', post.getPostList)
 
 	//我的个人中心
+	app.get('/myinfo', checkLogin)
 	app.get('/myinfo', function(req, res) {
 		res.render('myinfo', {
 			title: 'myInfo',
