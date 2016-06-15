@@ -1,4 +1,4 @@
-var fs = require('fs');  
+/*var fs = require('fs');  
 var path = require('path');  
 var multer  = require('multer')
 
@@ -22,6 +22,7 @@ writeStream.on('drain',function(){
 	console.log('data drains')
 	readStream.resume()
 })
+*/
 
 
 

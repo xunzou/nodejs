@@ -152,6 +152,16 @@ module.exports = function(app) {
 		});
 	});
 
+	var multipart = require('connect-multiparty');
+	var multipartMiddleware = multipart();
+
+
+	app.post('/upload', , multipartMiddleware, function(req, resp) {
+		console.log(req.files);
+		console.log('---------------------------------------');
+		console.log(req.body);
+		// don't forget to delete all req.files when done
+	});
 
 
 	/*app.get('/help', function(req, res) {
