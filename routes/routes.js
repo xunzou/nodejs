@@ -156,7 +156,7 @@ module.exports = function(app) {
 	var multipartMiddleware = multipart();
 
 
-	app.post('/upload', , multipartMiddleware, function(req, resp) {
+	app.post('/uploadAvator.do', multipartMiddleware, function(req, resp) {
 		console.log(req.files);
 		console.log('---------------------------------------');
 		console.log(req.body);
