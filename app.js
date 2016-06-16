@@ -33,8 +33,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'uploads')));
-
+app.use(express.static('./uploads'));
 
 
 // 按照上面的解释，设置 session 的可选参数

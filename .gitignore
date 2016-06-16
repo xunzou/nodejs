@@ -3,3 +3,5 @@ node_modules
 mysqldb.js
 favicon.ico
 test.js
+/uploads/
+/uploads/*

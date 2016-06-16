@@ -7,6 +7,14 @@ var post = require('./post.js')
 var search = require('./search.js')
 var cate = require('./cate.js')
 
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
+
+var fs = require('fs')
+var path = require('path')
+
+
 
 module.exports = function(app) {
 
@@ -152,15 +160,64 @@ module.exports = function(app) {
 		});
 	});
 
-	var multipart = require('connect-multiparty');
-	var multipartMiddleware = multipart();
-
-
-	app.post('/uploadAvator.do', multipartMiddleware, function(req, resp) {
+	app.post('/uploadAvator', multipartMiddleware, function(req, res) {
 		console.log(req.files);
-		console.log('---------------------------------------');
-		console.log(req.body);
+		//get filename
+		var filename = req.files.files.originalFilename || path.basename(req.files.files.path);
+		var date = new Date(),
+			year = '' + date.getFullYear(),
+			month = date.getMonth() + 1,
+			ymPath = month < 10 ? year + '0' + month : year + month;
+
+		/*fs.stat('uploads',function(err,stats){
+			if (err) {
+				console.log(err)
+			};
+			console.log(stats)
+		})*/
+		//创建 uploads 目录
+		if (!fs.existsSync('uploads')) {
+			fs.mkdirSync('uploads');
+		}
+		fs.readdir('uploads/'+ymPath,function(err,files){
+			if (err) {
+				console.log(err)
+			};
+			console.log(files)
+		})
+		//创建 年月 目录
+		if (!fs.existsSync('uploads/' + ymPath)) {
+			fs.mkdirSync('uploads/' + ymPath);
+		}
+
+		//判断是否为空
+		console.log(req.files.files.name)
+		console.log(!req.files.files.name)
+		if (!req.files.files.name) {
+			res.json({
+				//code: 304,
+				error:'请选择文件'
+			});
+			return
+		};
+
+
+
+		//copy file to a upload directory
+		var targetName = ymPath + '/' + Date.now() + path.extname(filename)
+		var targetPath = path.dirname(__dirname) +'/uploads/' +  targetName;
+		//copy file
+		fs.createReadStream(req.files.files.path).pipe(fs.createWriteStream(targetPath));
+
+		//return file url
+		res.json({
+			code: 200,
+			msg: {
+				url: 'http://' + req.headers.host + '/' + targetName
+			}
+		});
 		// don't forget to delete all req.files when done
+
 	});
 
 
