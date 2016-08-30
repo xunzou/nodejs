@@ -1,32 +1,29 @@
 <%- include('common/header.html') -%>
     	<h1><%= title %></h1>
-    	<p>Welcome to <%= title %></p>
-    	<p>Welcome to <%= user %></p>
 
-
-    	<form action="/reg" method="post">
-    		<div class="reg_item">
-    			<label for="">用户名</label>
-    			<input type="text" name="name" autocomplete="off" id="name" class="ipt" />
-    			<div class="alert alert-warning" id="alertWarning" style="display:none;">警告！请不要提交。</div>
-    		</div>
-    		<div class="reg_item">
-    			<label for="">Email</label>
-    			<input type="text" name="email" autocomplete="off" id="email" class="ipt" />
-    		</div>
-    		<div class="reg_item">
-    			<label for="">密码</label>
-    			<input type="password" name="password" id="password" class="ipt" />
-    		</div>
-    		<div class="reg_item">
-    			<label for=""> </label>
-    			<input type="submit" class="btn" />
-    		</div>
+        <form class="form-horizontal" role="reg" action="/reg" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="name">用户名：</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="name" autocomplete="off" id="name" placeholder="请输入您的用户名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="password">密码：</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control"name="password" id="password" placeholder="请输入您的密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="email">Email：</label>
+                <div class="col-sm-5">
+                    <input type="email" class="form-control" name="email" autocomplete="off" id="email" placeholder="请输入您的邮箱地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <button type="submit" class="btn btn-primary">注册</button>
+                </div>
+            </div>
     	</form>
-    	<% if (success) { %>
-    		<div class="alert alert-success"><%= success %></div>
-		<% } %>
-		<% if (error) { %>
-			<div class="alert alert-danger"><%= error %></div>
-		<% } %>
 <%- include('common/footer.html') -%>

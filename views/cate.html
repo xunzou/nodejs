@@ -2,13 +2,14 @@
     	<h1><%= title %></h1>
 
         <% if(cate && cate.length){ %>
-            <ul class="cate_list" id="cateList">
+            <ul class="list-group list-inline" id="cateList">
             <% for(var i = 0;i<cate.length;i++){ %>
-                <li class="cate_item">
+                <li class="list-group-item">
                     <span><%= cate[i].cateName %></span>
-                    <p><%= cate[i].cateDesc %></p>
                     <a href="#" vid="<%= cate[i].cateId %>" class="cate_change">修改</a>
                     <a href="#" vid="<%= cate[i].cateId %>" class="cate_del">删除</a>
+                    <p><%= cate[i].cateDesc %></p>
+                    
                 </li>
             <% } %>
             </ul>
@@ -16,22 +17,24 @@
             暂无分类，请添加
         <% } %>
         
-            
-
-
-    	<form action="/cate" method="post" id="cateForm">
-    		<div class="reg_item">
-    			<label for="">分类</label>
-    			<input type="text" name="cateName" id="cateName" class="ipt" />
-    		</div>
-    		<div class="reg_item">
-    			<label for="">分类说明</label>
-    			<input type="text" name="cateDesc" id="cateDesc" class="ipt" />
-    		</div>
-    		<div class="reg_item">
-    			<label for=""> </label>
-    			<input type="submit" class="btn" />
-    		</div>
+    	<form class="form-horizontal" action="/cate" method="post" id="cateForm">
+            <div class="form-group">
+                <label class="col-sm-1 control-label" for="cateName">分类：</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="cateName" id="cateName"  autocomplete="off" placeholder="请输入分类">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label" for="cateDesc">分类说明：</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="cateDesc" id="cateDesc"  autocomplete="off" placeholder="请输入描述">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-3">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </div>
     	</form>
 
 <script src="js/cate.js"></script>

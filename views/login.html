@@ -1,27 +1,38 @@
 <%- include('common/header.html') -%>
     	<h1><%= title %></h1>
-    	<p>Welcome to <%= user %></p>
 
+        <form class="form-horizontal" role="form" action="/login" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="name">邮箱/用户名：</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入您的邮箱地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="password">密码：</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control"name="password" id="password" placeholder="请输入您的密码">
+                </div>
 
-    	<form action="/login" method="post">
-    		<div class="reg_item">
-    			<label for="">用户名</label>
-    			<input type="text" name="name" id="name" class="ipt" />
-    		</div>
-    		<div class="reg_item">
-    			<label for="">密码</label>
-    			<input type="password" name="password" id="password" class="ipt" />
-    		</div>
-    		<div class="reg_item">
-    			<label for=""> </label>
-    			<input type="submit" class="btn" />
-    		</div>
-    	</form>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> 记住密码
+                        </label>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <button type="submit" class="btn btn-primary">登录</button>
+                </div>
+            </div>
+        </form> 
 
-        <% if (success) { %>
-            <div class="alert alert-success"><%= success %></div>
-        <% } %>
-        <% if (error) { %>
-            <div class="alert alert-danger"><%= error %></div>
-        <% } %>
+    	
+
+        
 <%- include('common/footer.html') -%>

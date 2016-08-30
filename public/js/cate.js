@@ -10,7 +10,7 @@ $(function() {
             //修改
             $('#cateList .cate_change').click(function(e){
                 e.preventDefault()
-                var parentLi = $(this).closest('li.cate_item'),
+                var parentLi = $(this).closest('li.list-group-item'),
                     cateId = $(this).attr('vid'),
                     cateName = parentLi.find('span').text(),
                     cateDesc = parentLi.find('p').text();
@@ -21,7 +21,7 @@ $(function() {
             //删除
             $('#cateList .cate_del').click(function(e){
                 e.preventDefault()
-                var parentLi = $(this).closest('li.cate_item'),
+                var parentLi = $(this).closest('li.list-group-item'),
                     cateId = $(this).attr('vid');
                 self.delCate(parentLi,cateId)
             });

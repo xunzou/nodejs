@@ -22,9 +22,9 @@ $(function() {
                         if (result && result.length) {
                             var html = '';
                             for (var i = 0; i < result.length; i++) {
-                                html += '<li><a href="/p/'+ result[i].path +'">' + result[i].title + '</a>['+ XZ.formatDate(result[i].addDate,'YYYY/MM/DD') +'] <a href="/editPost/'+ result[i].path +'" class="edit_post" title="编辑">编辑</a> <a href="#" path="'+ result[i].path +'" class="del_post" title="删除">删除</a></li>'
+                                html += '<li class="list-group-item"><a href="/p/'+ result[i].path +'">' + result[i].title + '</a>['+ XZ.formatDate(result[i].addDate,'YYYY/MM/DD') +'] <a href="/editPost/'+ result[i].path +'" class="edit_post" title="编辑">编辑</a> <a href="#" path="'+ result[i].path +'" class="del_post" title="删除">删除</a></li>'
                             };
-                            $('#myArticle').html('<ul>'+ html +'</ul>')
+                            $('#myArticle').html('<ul class="list-group">'+ html +'</ul>')
 
                             $('#myArticle li a.del_post').click(function(e){
                                 e.preventDefault()

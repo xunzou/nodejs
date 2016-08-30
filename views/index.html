@@ -8,30 +8,43 @@
 		<!-- <a href="#" id="getNew">获取最新文章</a>
 		<div id="myArticle"></div> -->
 
-		<h2>最新文章</h2>
-    	<div class="news" id="myPost">
-    		<% if(myPost && myPost.length){ %>
-    			<ul>
-    			<% for(var i = 0;i<myPost.length;i++){ %>
-    				<li><a href="/p/<%= myPost[i].path %>"><%= myPost[i].title %></a>[<%= myPost[i].addDate %>]</li>
-    			<% } %>
-    			</ul>
-    		<% } else { %>
-    			暂无数据
-    		<% } %>
-    	</div>
-    	<h2>随机文章</h2>
-    	<div class="news" id="myRandom">
-    		<% if(myRandom && myRandom.length){ %>
-    			<ul>
-    			<% for(var i = 0;i<myRandom.length;i++){ %>
-    				<li><a href="/p/<%= myRandom[i].path %>"><%= myRandom[i].title %></a>[<%= myRandom[i].addDate %>]</li>
-    			<% } %>
-    			</ul>
-    		<% } else { %>
-    			暂无数据
-    		<% } %>
-    	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>最新文章</h2>
+                <div class="news" id="myPost">
+                    <% if(myPost && myPost.length){ %>
+                        <ul>
+                        <% for(var i = 0;i<myPost.length;i++){ %>
+                            <li><a href="/p/<%= myPost[i].path %>"><%= myPost[i].title %></a>[<%= myPost[i].addDate %>]</li>
+                        <% } %>
+                        </ul>
+                    <% } else { %>
+                        暂无数据
+                    <% } %>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <h2>随机文章</h2>
+                <div class="news" id="myRandom">
+                    <% if(myRandom && myRandom.length){ %>
+                        <ul>
+                        <% for(var i = 0;i<myRandom.length;i++){ %>
+                            <li><a href="/p/<%= myRandom[i].path %>"><%= myRandom[i].title %></a>[<%= myRandom[i].addDate %>]</li>
+                        <% } %>
+                        </ul>
+                    <% } else { %>
+                        暂无数据
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+		
+    	
 
 	    <!-- <ul class="pagination">
 		  	<li><a href="#">&laquo;</a></li>
